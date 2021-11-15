@@ -22,7 +22,7 @@
 }
 
 .heart-icon:hover {
-  color: red;
+  fill: red;
 }
 
 .heart-icon:active {

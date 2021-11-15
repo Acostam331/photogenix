@@ -1,6 +1,7 @@
 import React from 'react';
 import './card.css';
 import { BiBookmark, BiHeart } from 'react-icons/bi';
+import { BsBookmarkFill, BsFillHeartFill } from 'react-icons/bs';
 
 const Card = () => {
   return (
@@ -12,8 +13,8 @@ const Card = () => {
           alt=""
         />
       </div>
+      <p className="text-white font-thin text-3xl px-8">Title</p>
       <div className="flex flex-col items-center justify-center text-justify px-8 pb-8">
-        <p className="text-white font-thin text-3xl">Title</p>
         <h2 className="text-gray-300">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus
           natus voluptates, nisi unde sed asperiores earum? Similique nulla modi
@@ -21,11 +22,12 @@ const Card = () => {
         </h2>
       </div>
       <div className="flex justify-end px-8 pb-8">
-        <button className="mx-2">
-          <BiHeart className="card-icons heart-icon" />
+        <button>
+          {/* <BiHeart className="card-icons heart-icon" /> */}
+          <BsFillHeartFill className="card-icons heart-icon mx-2" />
         </button>
-        <button className="mx-2">
-          <BiBookmark className="card-icons bookmark-icon mx-2" />
+        <button>
+          <BsBookmarkFill className="card-icons bookmark-icon ml-2" />
         </button>
       </div>
     </div>
