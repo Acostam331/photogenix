@@ -1,22 +1,116 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import classes from './Feed.module.css';
 import { BiWorld, BiCircle, BiBookmark, BiUserCircle } from 'react-icons/bi';
 import Card from '../Card/Card';
 
 const Feed = () => {
+  const [data, setData] = useState([]);
+  const [user, setUser] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [alertModal, setAlertModal] = useState({
+    isAlert: false,
+    message: '',
+    type: '',
+  });
+
+  // Will change on login
+  const tempUser = async () => {
+    try {
+      const response = await fetch(
+        'https://posts-pw2021.herokuapp.com/api/v1/auth/signin',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: 'gp3_user@test.com',
+            password: 'IMeFecQn7IVA3eeH',
+          }),
+        }
+      );
+      const user = await response.json();
+
+      if (user) {
+        setUser(user);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchAllData = async () => {
+    const response = await fetch(
+      'https://posts-pw2021.herokuapp.com/api/v1/post/all?limit=15&page=0',
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+    const posts = await response.json();
+
+    if (posts) {
+      setData(posts.data);
+    }
+  };
+
+  useEffect(() => {
+    tempUser();
+  }, []);
+
+  useEffect(() => {
+    fetchAllData();
+    // eslint-disable-next-line
+  }, [user]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+      console.log(data);
+    }, 3000);
+  }, [data]);
+
+  const cleanAlert = () => {
+    setAlertModal({ isAlert: false, icon: '', message: '', type: '' });
+  };
+
   return (
     <main className="bg-indigo-900 h-screen">
       <header className={classes.dCenter}>
         <h1 className="text-white">Feed</h1>
         <div className={classes.userSection}>
-          <BiUserCircle className={classes.iconUser} />
+          {/* pending */}
+          <Link to="/">
+            <BiUserCircle className={classes.iconUser} />
+          </Link>
         </div>
       </header>
       <div className={classes.posts}>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {/* alert modal */}
+        {alertModal.isAlert ? (
+          <div
+            className={`flex py-2 px-8 w-5/6 alert-card rounded-3xl ${classes.alertCard} ${alertModal.type}`}
+          >
+            <p className="mx-4 text-white">{alertModal.message}</p>
+          </div>
+        ) : (
+          ''
+        )}
+        {isLoading
+          ? 'loading...'
+          : data.map((post) => {
+              return (
+                <Card
+                  key={post._id}
+                  {...post}
+                  cleanAlert={cleanAlert}
+                  setAlertModal={setAlertModal}
+                />
+              );
+            })}
       </div>
       <footer className="bg-gray-800">
         <button>

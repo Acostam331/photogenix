@@ -81,3 +81,9 @@ footer > button {
   font-size: 3.5vh;
   color: white;
 }
+
+.alertCard {
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
