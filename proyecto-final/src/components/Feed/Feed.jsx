@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import classes from './Feed.module.css';
+import AddPost from '../AddPost/AddPost';
 import { BiWorld, BiCircle, BiBookmark, BiUserCircle } from 'react-icons/bi';
 import Card from '../Card/Card';
 
@@ -40,7 +41,7 @@ const Feed = () => {
     }
   };
 
-  const fetchAllData = async () => {
+  const fetchAllData = useCallback(async () => {
     const response = await fetch(
       'https://posts-pw2021.herokuapp.com/api/v1/post/all?limit=15&page=0',
       {
@@ -55,7 +56,7 @@ const Feed = () => {
     if (posts) {
       setData(posts.data);
     }
-  };
+  }, [user.token]);
 
   useEffect(() => {
     tempUser();
@@ -63,13 +64,11 @@ const Feed = () => {
 
   useEffect(() => {
     fetchAllData();
-    // eslint-disable-next-line
-  }, [user]);
+  }, [user, fetchAllData]);
 
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-      console.log(data);
     }, 3000);
   }, [data]);
 
@@ -99,6 +98,7 @@ const Feed = () => {
         ) : (
           ''
         )}
+        <AddPost />
         {isLoading
           ? 'loading...'
           : data.map((post) => {

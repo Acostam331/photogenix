@@ -26,7 +26,6 @@ const Card = ({
       </div>
       <div className="flex justify-end px-8 pb-8">
         <button>
-          {/* <BiHeart className="card-icons heart-icon" /> */}
           <BiHeart
             className="card-icons heart-icon mx-2"
             onClick={() => {
