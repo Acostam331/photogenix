@@ -1,76 +1,28 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import classes from './Feed.module.css';
-import AddPost from '../AddPost/AddPost';
+// import AddPost from '../AddPost/AddPost';
 import { BiWorld, BiCircle, BiBookmark, BiUserCircle } from 'react-icons/bi';
 import Card from '../Card/Card';
+import { useGetAll } from '../../services/Services';
 
 const Feed = () => {
-  const [data, setData] = useState([]);
-  const [user, setUser] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  //will change on login
+  const token =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MThjNTIwMzRjZmQ3MDRhZTMzN2Q1OGYiLCJpYXQiOjE2MzcxNjkxNTcsImV4cCI6MTYzODM3ODc1N30.uwvMirGrbvcFBWjxqooJ1s-gFOLyYfbJJk-7_JTVFck';
+
+  // temp token log
+  // const username = 'gp3_user@test.com';
+  // const password = 'IMeFecQn7IVA3eeH';
+  // const { token } = useGetUser(username, password);
+  // console.log(token);
+
+  const { posts, isLoading } = useGetAll(token);
   const [alertModal, setAlertModal] = useState({
     isAlert: false,
     message: '',
     type: '',
   });
-
-  // Will change on login
-  const tempUser = async () => {
-    try {
-      const response = await fetch(
-        'https://posts-pw2021.herokuapp.com/api/v1/auth/signin',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            username: 'gp3_user@test.com',
-            password: 'IMeFecQn7IVA3eeH',
-          }),
-        }
-      );
-      const user = await response.json();
-
-      if (user) {
-        setUser(user);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchAllData = useCallback(async () => {
-    const response = await fetch(
-      'https://posts-pw2021.herokuapp.com/api/v1/post/all?limit=15&page=0',
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
-    const posts = await response.json();
-
-    if (posts) {
-      setData(posts.data);
-    }
-  }, [user.token]);
-
-  useEffect(() => {
-    tempUser();
-  }, []);
-
-  useEffect(() => {
-    fetchAllData();
-  }, [user, fetchAllData]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-  }, [data]);
 
   const cleanAlert = () => {
     setAlertModal({ isAlert: false, icon: '', message: '', type: '' });
@@ -98,10 +50,10 @@ const Feed = () => {
         ) : (
           ''
         )}
-        <AddPost />
+        {/* <AddPost /> */}
         {isLoading
           ? 'loading...'
-          : data.map((post) => {
+          : posts.map((post) => {
               return (
                 <Card
                   key={post._id}

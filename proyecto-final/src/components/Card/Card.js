@@ -17,14 +17,14 @@ const Card = ({
         <BiUserCircle className="user-icon mr-2" />
         <h3 className="text-white">{user.username}</h3>
       </div>
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center w-11/12 h-72 sm:h-96 mx-auto">
         <img src={image} className="card-img" alt={title} />
       </div>
-      <p className="text-white font-thin text-3xl px-8">{title}</p>
-      <div className="flex flex-col items-center justify-center px-8 pb-8">
+      <div className="flex flex-col items-center p-4 pb-4">
+        <p className="text-white font-thin text-3xl">{title}</p>
         <h2 className="text-gray-300">{description}</h2>
       </div>
-      <div className="flex justify-end px-8 pb-8">
+      <div className="flex justify-end px-4 pb-4">
         <button>
           <BiHeart
             className="card-icons heart-icon mx-2"
