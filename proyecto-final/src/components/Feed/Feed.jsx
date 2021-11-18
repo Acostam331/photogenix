@@ -5,6 +5,7 @@ import classes from './Feed.module.css';
 import { BiWorld, BiCircle, BiBookmark, BiUserCircle } from 'react-icons/bi';
 import Card from '../Card/Card';
 import { useGetAll } from '../../services/Services';
+import Comments from '../Comments/Comments';
 
 const Feed = () => {
   //will change on login
@@ -18,6 +19,7 @@ const Feed = () => {
   // console.log(token);
 
   const { posts, isLoading } = useGetAll(token);
+  const [comments, setComments] = useState({ isComments: false, postId: '' });
   const [alertModal, setAlertModal] = useState({
     isAlert: false,
     message: '',
@@ -51,6 +53,16 @@ const Feed = () => {
           ''
         )}
         {/* <AddPost /> */}
+        {comments.isComments ? (
+          <Comments
+            comments={comments}
+            posts={posts}
+            setComments={setComments}
+          />
+        ) : (
+          ''
+        )}
+
         {isLoading
           ? 'loading...'
           : posts.map((post) => {
@@ -58,8 +70,10 @@ const Feed = () => {
                 <Card
                   key={post._id}
                   {...post}
+                  token={token}
                   cleanAlert={cleanAlert}
                   setAlertModal={setAlertModal}
+                  setComments={setComments}
                 />
               );
             })}

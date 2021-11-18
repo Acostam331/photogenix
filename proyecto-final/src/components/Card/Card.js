@@ -1,15 +1,19 @@
 import React from 'react';
 import './card.css';
-// import { BsBookmarkFill, BsFillHeartFill } from 'react-icons/bs';
-import { BiHeart, BiBookmark, BiUserCircle } from 'react-icons/bi';
+
+import { BiHeart, BiBookmark, BiUserCircle, BiComment } from 'react-icons/bi';
 
 const Card = ({
+  _id,
   title,
   description,
   image,
   user,
+  likes,
+  comments,
   setAlertModal,
   cleanAlert,
+  setComments,
 }) => {
   return (
     <div className="square bg-gray-800 rounded-3xl">
@@ -25,9 +29,9 @@ const Card = ({
         <h2 className="text-gray-300">{description}</h2>
       </div>
       <div className="flex justify-end px-4 pb-4">
-        <button>
-          <BiHeart
-            className="card-icons heart-icon mx-2"
+        <div className="flex">
+          {likes.length > 0 ? <p className="text-white">{likes.length}</p> : ''}
+          <button
             onClick={() => {
               setAlertModal({
                 isAlert: true,
@@ -39,11 +43,26 @@ const Card = ({
                 cleanAlert();
               }, 5000);
             }}
-          />
-        </button>
-        <button>
-          <BiBookmark
-            className="card-icons bookmark-icon ml-2"
+          >
+            <BiHeart className="card-icons heart-icon mx-2" />
+          </button>
+        </div>
+        <div className="flex">
+          {comments.length > 0 ? (
+            <p className="text-white">{comments.length}</p>
+          ) : (
+            ''
+          )}
+          <button
+            onClick={() => {
+              setComments({ isComments: true, postId: `${_id}` });
+            }}
+          >
+            <BiComment className="card-icons comment-icon mx-2" />
+          </button>
+        </div>
+        <div className="flex">
+          <button
             onClick={() => {
               setAlertModal({
                 isAlert: true,
@@ -55,8 +74,10 @@ const Card = ({
                 cleanAlert();
               }, 5000);
             }}
-          />
-        </button>
+          >
+            <BiBookmark className="card-icons bookmark-icon ml-2" />
+          </button>
+        </div>
       </div>
     </div>
   );
