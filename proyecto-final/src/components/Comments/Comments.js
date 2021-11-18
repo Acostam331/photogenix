@@ -7,12 +7,14 @@ const Comments = ({ comments, setComments, posts }) => {
   const newPost = posts.find((post) => post._id === comments.postId);
 
   return (
-    <div className="comment-card sm:w-4/5 w-11/12 h-3/4 bg-gray-800 rounded-3xl absolute">
+    <div className="comment-card w-full bg-gray-800 rounded-3xl absolute z-50">
       <div className="flex flex-nowrap title-container justify-between">
         <div className="m-4"></div>
-        <p className="text-white font-thin text-3xl m-4">Comentarios</p>
+        <p className="text-white font-thin text-3xl m-4 self-center">
+          Comentarios
+        </p>
         <button
-          className="m-4"
+          className="m-8"
           onClick={() => {
             setComments({ isComments: false, postId: '' });
           }}
@@ -24,7 +26,7 @@ const Comments = ({ comments, setComments, posts }) => {
       {newPost.comments.length === 0 ? (
         <div className="flex flex-col justify-center items-center comments-container">
           <BiCommentX className="no-comments-icon" />
-          <p className="text-white">No hay comentarios, se el primero</p>
+          <p className="text-white">No hay comentarios.</p>
         </div>
       ) : (
         <div className="flex flex-col comments-container">
@@ -49,6 +51,7 @@ const Comments = ({ comments, setComments, posts }) => {
       <div className="flex input-container">
         <input
           className="comment-input ml-auto my-auto p-4 rounded-3xl"
+          placeholder="Escribe un mensaje..."
           type="text"
         />
         <button className="m-auto">

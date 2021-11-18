@@ -53,15 +53,6 @@ const Feed = () => {
           ''
         )}
         {/* <AddPost /> */}
-        {comments.isComments ? (
-          <Comments
-            comments={comments}
-            posts={posts}
-            setComments={setComments}
-          />
-        ) : (
-          ''
-        )}
 
         {isLoading
           ? 'loading...'
@@ -77,6 +68,16 @@ const Feed = () => {
                 />
               );
             })}
+
+        {comments.isComments ? (
+          <Comments
+            comments={comments}
+            posts={posts}
+            setComments={setComments}
+          />
+        ) : (
+          ''
+        )}
       </div>
       <footer className="bg-gray-800">
         <button>

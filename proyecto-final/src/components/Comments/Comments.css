@@ -1,6 +1,8 @@
 .comment-card {
   left: 50%;
   transform: translate(-50%, 0);
+  bottom: 0;
+  height: 92vh;
 }
 
 .comments-icons {
