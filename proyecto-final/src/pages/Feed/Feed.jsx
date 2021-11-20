@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Footer from './Footer';
+import { BiUserCircle } from 'react-icons/bi';
 import classes from './Feed.module.css';
 // import AddPost from '../AddPost/AddPost';
-import { BiWorld, BiCircle, BiBookmark, BiUserCircle } from 'react-icons/bi';
-import Card from '../Card/Card';
+import Card from '../../components/Card/Card';
 import { useGetAll } from '../../services/Services';
-import Comments from '../Comments/Comments';
+import Comments from '../../components/Comments/Comments';
 
 const Feed = () => {
   //will change on login
@@ -35,8 +36,7 @@ const Feed = () => {
       <header className={classes.dCenter}>
         <h1 className="text-white">Feed</h1>
         <div className={classes.userSection}>
-          {/* pending */}
-          <Link to="/">
+          <Link to="/user">
             <BiUserCircle className={classes.iconUser} />
           </Link>
         </div>
@@ -79,17 +79,7 @@ const Feed = () => {
           ''
         )}
       </div>
-      <footer className="bg-gray-800">
-        <button>
-          <BiWorld className={classes.icons} />
-        </button>
-        <button>
-          <BiCircle className={classes.icons} />
-        </button>
-        <button>
-          <BiBookmark className={classes.icons} />
-        </button>
-      </footer>
+      <Footer />
     </main>
   );
 };
