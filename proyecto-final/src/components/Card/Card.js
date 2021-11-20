@@ -11,10 +11,14 @@ const Card = ({
   user,
   likes,
   comments,
-  setAlertModal,
-  cleanAlert,
   setComments,
+  addNewLike = () => {},
+  addNewFav = () => {}
 }) => {
+  const setNewFav = () => {
+    addNewFav();
+  };
+
   return (
     <div className="square bg-gray-800 rounded-3xl">
       <div className="flex p-4">
@@ -33,15 +37,7 @@ const Card = ({
           {likes.length > 0 ? <p className="text-white">{likes.length}</p> : ''}
           <button
             onClick={() => {
-              setAlertModal({
-                isAlert: true,
-                message: 'Has dado like',
-                type: 'bg-green-400',
-              });
-
-              setTimeout(() => {
-                cleanAlert();
-              }, 5000);
+              addNewLike();
             }}
           >
             <BiHeart className="card-icons heart-icon mx-2" />
@@ -64,15 +60,7 @@ const Card = ({
         <div className="flex">
           <button
             onClick={() => {
-              setAlertModal({
-                isAlert: true,
-                message: 'Has guardado como favorito',
-                type: 'bg-green-400',
-              });
-
-              setTimeout(() => {
-                cleanAlert();
-              }, 5000);
+              setNewFav();
             }}
           >
             <BiBookmark className="card-icons bookmark-icon ml-2" />

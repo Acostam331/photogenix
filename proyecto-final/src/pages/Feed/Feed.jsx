@@ -5,7 +5,7 @@ import { BiUserCircle } from 'react-icons/bi';
 import classes from './Feed.module.css';
 // import AddPost from '../AddPost/AddPost';
 import Card from '../../components/Card/Card';
-import { useGetAll } from '../../services/Services';
+import { useGetAll, setNewLike, setNewFavorite } from '../../services/Posts.services';
 import Comments from '../../components/Comments/Comments';
 
 const Feed = () => {
@@ -29,6 +29,36 @@ const Feed = () => {
 
   const cleanAlert = () => {
     setAlertModal({ isAlert: false, icon: '', message: '', type: '' });
+  };
+
+  const addNewLikeHandler = async (id) => {
+    let response = await setNewLike(token, id);
+    if (response.statusText === "OK") {
+      setAlertModal({
+        isAlert: true,
+        message: 'Has dado like',
+        type: 'bg-green-400',
+      });
+
+      setTimeout(() => {
+        cleanAlert();
+      }, 5000);
+    }
+  };
+
+  const addNewFavHandler = async (id) => {
+    let response = await setNewFavorite(token, id);
+    if (response.statusText === "OK") {
+      setAlertModal({
+        isAlert: true,
+        message: 'Has guardado como favorito',
+        type: 'bg-green-400',
+      });
+
+      setTimeout(() => {
+        cleanAlert();
+      }, 5000);
+    }
   };
 
   return (
@@ -62,9 +92,9 @@ const Feed = () => {
                   key={post._id}
                   {...post}
                   token={token}
-                  cleanAlert={cleanAlert}
-                  setAlertModal={setAlertModal}
                   setComments={setComments}
+                  addNewLike={() => addNewLikeHandler(post._id)}
+                  addNewFav={() => addNewFavHandler(post._id)}
                 />
               );
             })}
