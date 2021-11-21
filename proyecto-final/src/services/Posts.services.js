@@ -88,7 +88,7 @@ export const getAllPosts = async (token) => {
     console.log(error);
   }
 
-  return { isLoading: false, posts: response };
+  return { isLoading: false, posts: response ?? [] };
 };
 
 /* one post */
@@ -166,7 +166,7 @@ export const getFavorites = async (token) => {
   const promisesArray = id_array.map((id) => getOnePost(token, id));
   const results = await Promise.all(promisesArray);
 
-  return { isLoading: false, posts: results };
+  return { isLoading: false, posts: results ?? [] };
 };
 
 export const setNewFavorite = async (token, id) => {
