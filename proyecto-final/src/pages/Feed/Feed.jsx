@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from './Footer';
 import { BiUserCircle } from 'react-icons/bi';
 import classes from './Feed.module.css';
 // import AddPost from '../AddPost/AddPost';
 import Card from '../../components/Card/Card';
-import { useGetAll, setNewLike, setNewFavorite } from '../../services/Posts.services';
+import { getAllPosts, getFavorites, setNewLike, setNewFavorite } from '../../services/Posts.services';
 import Comments from '../../components/Comments/Comments';
 
 const Feed = () => {
@@ -19,7 +19,28 @@ const Feed = () => {
   // const { token } = useGetUser(username, password);
   // console.log(token);
 
-  const { posts, isLoading } = useGetAll(token);
+  // const { posts, isLoading } = useGetFavorites(token);
+  const [posts, setPosts] = useState([]);
+  const [tab, setTab]= useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  const getData = useCallback(async() => {
+    setIsLoading(true);
+    let response = {};
+    if (tab === 1) {
+      response = await getAllPosts(token);
+    } else {
+      response = await getFavorites(token);
+    }
+
+    setPosts(response.posts);
+    setIsLoading(response.isLoading);
+  }, [tab]);
+
+  useEffect(() => {
+    getData();
+  }, [tab, getData]);
+
   const [comments, setComments] = useState({ isComments: false, postId: '' });
   const [alertModal, setAlertModal] = useState({
     isAlert: false,
@@ -59,6 +80,10 @@ const Feed = () => {
         cleanAlert();
       }, 5000);
     }
+  };
+
+  const changeTabHandler = (tab) => {
+    setTab(tab);
   };
 
   return (
@@ -109,7 +134,7 @@ const Feed = () => {
           ''
         )}
       </div>
-      <Footer />
+      <Footer changeTab={(tab) => changeTabHandler(tab)} />
     </main>
   );
 };

@@ -40,6 +40,10 @@
   fill: red;
 }
 
+.icon-filled {
+  fill: red;
+}
+
 @media (max-width: 600px) {
   .square {
     width: 90%;

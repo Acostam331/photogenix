@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './card.css';
 
 import { BiHeart, BiBookmark, BiUserCircle, BiComment } from 'react-icons/bi';
@@ -15,9 +15,20 @@ const Card = ({
   addNewLike = () => {},
   addNewFav = () => {}
 }) => {
+  const [isMine, setIsMine] = useState(false);
+  let myuser = "gp3_user"; // tmp...
+
   const setNewFav = () => {
     addNewFav();
   };
+
+  useEffect(() => {
+    likes.forEach(user => {
+      if (user.username === myuser) {
+        setIsMine(true);
+      }
+    });
+  }, [likes, myuser]);
 
   return (
     <div className="square bg-gray-800 rounded-3xl">
@@ -40,7 +51,7 @@ const Card = ({
               addNewLike();
             }}
           >
-            <BiHeart className="card-icons heart-icon mx-2" />
+            <BiHeart className={`card-icons heart-icon mx-2 ${isMine && 'icon-filled'}`} />
           </button>
         </div>
         <div className="flex">
