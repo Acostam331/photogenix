@@ -26,6 +26,7 @@
 
 .comments-container {
   height: 70%;
+  overflow-y: scroll;
 }
 
 .input-container {

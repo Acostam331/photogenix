@@ -5,13 +5,18 @@ import { BiUserCircle } from 'react-icons/bi';
 import classes from './Feed.module.css';
 // import AddPost from '../AddPost/AddPost';
 import Card from '../../components/Card/Card';
-import { getAllPosts, getFavorites, setNewLike, setNewFavorite } from '../../services/Posts.services';
+import {
+  getAllPosts,
+  getFavorites,
+  setNewLike,
+  setNewFavorite,
+} from '../../services/Posts.services';
 import Comments from '../../components/Comments/Comments';
 
 const Feed = () => {
   //will change on login
   const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MThjNTIwMzRjZmQ3MDRhZTMzN2Q1OGYiLCJpYXQiOjE2MzcxNjkxNTcsImV4cCI6MTYzODM3ODc1N30.uwvMirGrbvcFBWjxqooJ1s-gFOLyYfbJJk-7_JTVFck';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MThjNTIwMzRjZmQ3MDRhZTMzN2Q1OGYiLCJpYXQiOjE2Mzc1MTQ2NTEsImV4cCI6MTYzODcyNDI1MX0.OPlzOLGSBn7jpSnd2XqVlJUX-rxKnayRbefv3kpFp2w';
 
   // temp token log
   // const username = 'gp3_user@test.com';
@@ -21,10 +26,10 @@ const Feed = () => {
 
   // const { posts, isLoading } = useGetFavorites(token);
   const [posts, setPosts] = useState([]);
-  const [tab, setTab]= useState(0);
+  const [tab, setTab] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  
-  const getData = useCallback(async() => {
+
+  const getData = useCallback(async () => {
     setIsLoading(true);
     let response = {};
     if (tab === 1) {
@@ -54,7 +59,7 @@ const Feed = () => {
 
   const addNewLikeHandler = async (id) => {
     let response = await setNewLike(token, id);
-    if (response.statusText === "OK") {
+    if (response.statusText === 'OK') {
       setAlertModal({
         isAlert: true,
         message: 'Has dado like',
@@ -69,7 +74,7 @@ const Feed = () => {
 
   const addNewFavHandler = async (id) => {
     let response = await setNewFavorite(token, id);
-    if (response.statusText === "OK") {
+    if (response.statusText === 'OK') {
       setAlertModal({
         isAlert: true,
         message: 'Has guardado como favorito',
@@ -100,7 +105,7 @@ const Feed = () => {
         {/* alert modal */}
         {alertModal.isAlert ? (
           <div
-            className={`flex py-2 px-8 w-5/6 alert-card rounded-3xl ${classes.alertCard} ${alertModal.type}`}
+            className={`flex py-2 px-8 w-5/6 alert-card rounded-3xl z-50 ${classes.alertCard} ${alertModal.type}`}
           >
             <p className="mx-4 text-white">{alertModal.message}</p>
           </div>
@@ -129,6 +134,9 @@ const Feed = () => {
             comments={comments}
             posts={posts}
             setComments={setComments}
+            token={token}
+            setAlertModal={setAlertModal}
+            cleanAlert={cleanAlert}
           />
         ) : (
           ''

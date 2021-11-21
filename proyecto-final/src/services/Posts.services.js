@@ -130,7 +130,7 @@ const getFavoritesIds = async (token) => {
     });
 
     if (posts) {
-      response = posts.data.favorites; 
+      response = posts.data.favorites;
       // console.log(posts);
     }
   } catch (error) {
@@ -198,6 +198,29 @@ export const setNewLike = async (token, id) => {
       url: `/post/like/${id}`,
       headers: {
         authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  } finally {
+    return response;
+  }
+};
+
+// Comment Posts
+export const setNewComment = async (token, id, message) => {
+  let response = undefined;
+  try {
+    response = await axios({
+      method: 'PATCH',
+      baseURL: BASE_URL,
+      url: `/post/comment/${id}`,
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
+      },
+      data: {
+        description: `${message}`,
       },
     });
   } catch (error) {

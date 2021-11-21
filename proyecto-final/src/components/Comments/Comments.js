@@ -1,13 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Comments.css';
 import { FaTimes } from 'react-icons/fa';
+import { setNewComment } from '../../services/Posts.services';
 import { BiUserCircle, BiCommentX, BiCommentEdit } from 'react-icons/bi';
 
-const Comments = ({ comments, setComments, posts }) => {
+const Comments = ({
+  comments,
+  setComments,
+  posts,
+  token,
+  setAlertModal,
+  cleanAlert,
+}) => {
   const newPost = posts.find((post) => post._id === comments.postId);
+  const [message, setMessage] = useState('');
+
+  const addCommentHandler = async () => {
+    if (message.length >= 8) {
+      const response = await setNewComment(token, newPost._id, message);
+
+      if (response.statusText === 'OK') {
+        setAlertModal({
+          isAlert: true,
+          message: 'Has comentado en este post',
+          type: 'bg-green-400',
+        });
+
+        setTimeout(() => {
+          cleanAlert();
+        }, 5000);
+      }
+
+      setMessage('');
+    } else {
+      setAlertModal({
+        isAlert: true,
+        message: 'El comentario debe tener al menos 8 caracteres',
+        type: 'bg-red-400',
+      });
+
+      setTimeout(() => {
+        cleanAlert();
+      }, 5000);
+    }
+  };
 
   return (
-    <div className="comment-card w-full bg-gray-800 rounded-3xl absolute z-50">
+    <div className="comment-card w-full bg-gray-800 rounded-3xl absolute z-40">
       <div className="flex flex-nowrap title-container justify-between">
         <div className="m-4"></div>
         <p className="text-white font-thin text-3xl m-4 self-center">
@@ -53,8 +92,17 @@ const Comments = ({ comments, setComments, posts }) => {
           className="comment-input ml-auto my-auto p-4 rounded-3xl"
           placeholder="Escribe un mensaje..."
           type="text"
+          value={message}
+          onChange={(e) => {
+            setMessage(e.target.value);
+          }}
         />
-        <button className="m-auto">
+        <button
+          className="m-auto"
+          onClick={() => {
+            addCommentHandler();
+          }}
+        >
           <BiCommentEdit className="new-comment-icon" />
         </button>
       </div>
