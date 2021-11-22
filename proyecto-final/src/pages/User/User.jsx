@@ -6,14 +6,17 @@ import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 
 const User = () => {
     const navigate = useNavigate();
+    // Call useUserContext to remove de token to end the session
     const { logout } = useUserContext();
 
     const onLogOutHandler = () => {
         logout();
+        // Session ends
         navigate("/login");
     }
 
     return (
+        // html and design
     <main className="bg-indigo-900 h-screen">
         <header className={classes.dCenter}>
         <h1 className="text-white">User</h1>

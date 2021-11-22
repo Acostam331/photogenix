@@ -14,23 +14,23 @@ import Private from './components/PrivateRoute/PrivateRoute';
 
 ReactDOM.render(
   <UserProvider>
-  <BrowserRouter>
-    {/* changing routes */}
-    <Routes>
-      {/* default route */}
-      <Route path="/" element={<App />} />
-      
-      <Route path="/login" element={<Login />} />
-      {/* usaremos role?? (en esta parte) */}
-      <Route path="/feed" element={<Private role=""> <Feed /> </Private>} />
-      <Route path="/user" element={<Private role=""> <User /> </Private>} />
-      <Route path="/redirect" element={<RedirectUser />} />
-      {/* test route */}
-      <Route path="test" element={<Test />} />
-      {/* error route */}
-      <Route path="*" element={<Error />} />
-    </Routes>
-  </BrowserRouter>
+    <BrowserRouter>
+      {/* changing routes */}
+      <Routes>
+        {/* default route */}
+        <Route path="/" element={<App />} />
+        <Route path="/login" element={<Login />} />
+        {/* Conditional rendering on feed*/}
+        <Route path="/feed" element={<Private role=""> <Feed /> </Private>} />
+        <Route path="/user" element={<Private role=""> <User /> </Private>} />
+        {/* After login */}
+        <Route path="/redirect" element={<RedirectUser />} />
+        {/* test route */}
+        <Route path="test" element={<Test />} />
+        {/* error route */}
+        <Route path="*" element={<Error />} />
+      </Routes>
+    </BrowserRouter>
   </UserProvider>,
   document.getElementById('root')
 );

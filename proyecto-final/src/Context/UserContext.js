@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 /*import {useGetUser} from './../services/Posts.services';*/
-import userService from './../services/Posts.services';
+import userService from './../services/User.services';
 
 const UserContext = React.createContext();
 const TOKEN_KEY = 'token';
@@ -30,6 +30,7 @@ export const UserProvider = (props) => {
     setToken(token);
   };
 
+  // Login process
   const login = useCallback((username, password) => {
     const loginAsync = async () => {
       let status = false;
@@ -51,11 +52,13 @@ export const UserProvider = (props) => {
     return loginAsync();
   }, []);
 
+  // Clean the token to finish session
   const logout = useCallback(() => {
     setUser(undefined);
     setTokenAll(undefined);
   }, []);
 
+  // Info session
   const value = useMemo(
     () => ({
       token: token,
@@ -69,6 +72,7 @@ export const UserProvider = (props) => {
   return <UserContext.Provider value={value} {...props} />;
 };
 
+// Export token in the object context
 export const useUserContext = () => {
   const context = React.useContext(UserContext);
 

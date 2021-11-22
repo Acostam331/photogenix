@@ -94,6 +94,7 @@ const Feed = () => {
   };
 
   return (
+    // html and design
     <main className="bg-indigo-900 h-screen">
       <header className={classes.dCenter}>
         <h1 className="text-white">Feed</h1>

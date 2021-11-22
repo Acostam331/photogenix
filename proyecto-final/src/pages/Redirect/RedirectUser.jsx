@@ -2,6 +2,7 @@ import { useUserContext } from '../../Context/UserContext';
 import { Navigate } from 'react-router-dom';
 /*import sad from '../../assets/img/error.jpg'*/
 
+/* !!Login always redict to Feed, but the Feed will rederize depending on the role!! */
 const rolePages = {
   admin: '/admin',
   user: '/feed',
@@ -12,6 +13,7 @@ const RedirectUser = () => {
 
   if (!user)
     return (
+      
       <div className="flex flex-col justify-center items-center w-screen h-screen bg-white">
         <p className="text-lg font-medium text-gray-800 text-center p-8">
           {' '}

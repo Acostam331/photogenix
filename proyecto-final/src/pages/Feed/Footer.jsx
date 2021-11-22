@@ -3,6 +3,7 @@ import classes from './Feed.module.css';
 
 const Footer = ({changeTab = () => {}}) => {
     return (
+        // html and design
     <footer className="bg-gray-800">
         <button onClick={() => changeTab(1)}>
         <BiWorld className={classes.icons} />
