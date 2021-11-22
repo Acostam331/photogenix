@@ -56,19 +56,24 @@ services.login = async (username, password) => {
 };
 
 services.verifyToken = async (token) => {
-  const response = await fetch(`${BASE_URL}/auth/whoami`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  if (response.ok) {
-    const data = await response.json();
-    return data;
+  let res = {};
+  try {
+    const response = await fetch(`${BASE_URL}/auth/whoami`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  
+    if (response.ok) {
+      const data = await response.json();
+      res = data;
+    }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    return res;
   }
-
-  return {};
 };
 
 export default services;

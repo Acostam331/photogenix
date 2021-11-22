@@ -10,21 +10,19 @@ export const UserProvider = (props) => {
   const [user, setUser] = useState(undefined);
 
   useEffect(() => {
-    if (token !== undefined) {
-      const verifyTokenAsync = async () => {
-        const lsToken = getToken();
+    const verifyTokenAsync = async () => {
+      const lsToken = getToken();
 
-        if (lsToken) {
-          const { username, role } = await userService.verifyToken(lsToken);
-          if (username && role) {
-            setUser({ username, role });
-            setTokenAll(lsToken);
-          }
+      if (lsToken) {
+        const { username, role } = await userService.verifyToken(lsToken);
+        if (username && role) {
+          setUser({ username, role });
+          setTokenAll(lsToken);
         }
-      };
+      }
+    };
 
-      verifyTokenAsync();
-    }
+    verifyTokenAsync();
   }, [token]);
 
   const setTokenAll = (token) => {
