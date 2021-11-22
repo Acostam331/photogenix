@@ -12,20 +12,17 @@ import {
   setNewFavorite,
 } from '../../services/Posts.services';
 import Comments from '../../components/Comments/Comments';
+// import AddPost from '../../components/AddPost/AddPost';
 
 const Feed = () => {
   const { token } = useUserContext();
   // temp token log
   // const username = 'gp3_user@test.com';
   // const password = 'IMeFecQn7IVA3eeH';
-  // const { token } = useGetUser(username, password);
-  // console.log(token);
 
   // temp admin token log
   // const username = 'gp3_admin@test.com';
   // const password = 'DRFdQpXsxhB7ESFl';
-  // const { token } = useGetUser(username, password);
-  // console.log(token);
 
   // const { posts, isLoading } = useGetFavorites(token);
   const [posts, setPosts] = useState([]);
@@ -39,7 +36,7 @@ const Feed = () => {
   });
 
   // TO CHANGE ON ADMIN FEED
-  const [isNewPost, setIsNewPost] = useState(true);
+  // const [isNewPost, setIsNewPost] = useState(true);
 
   const getData = useCallback(async () => {
     setIsLoading(true);
@@ -52,7 +49,7 @@ const Feed = () => {
 
     setPosts(response.posts);
     setIsLoading(response.isLoading);
-  }, [tab]);
+  }, [tab, token]);
 
   useEffect(() => {
     getData();
@@ -117,7 +114,6 @@ const Feed = () => {
         ) : (
           ''
         )}
-        {/* <AddPost /> */}
 
         {isLoading
           ? 'loading...'
@@ -146,6 +142,7 @@ const Feed = () => {
         ) : (
           ''
         )}
+        {/* {isNewPost ? <AddPost token={token} setIsNewPost={setIsNewPost} /> : ''} */}
       </div>
       <Footer changeTab={(tab) => changeTabHandler(tab)} />
     </main>
