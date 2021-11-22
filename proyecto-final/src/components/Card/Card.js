@@ -31,6 +31,7 @@ const Card = ({
   }, [likes, myuser]);
 
   return (
+    // html and design
     <div className="square bg-gray-800 rounded-3xl">
       <div className="flex p-4">
         <BiUserCircle className="user-icon mr-2" />

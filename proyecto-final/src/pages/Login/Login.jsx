@@ -36,29 +36,29 @@ export default function Login() {
     return (
         // html and design
         <div className="flex justify-center items-center min-h-screen bg-gray-800">
-            <main className="square bg-gray-800 rounded-3xl">
-                <form onSubmit={onSubmitHandler} className="flex flex-col gap-4 items-center justify-center">
-                    <h2 className="uppercase text-4xl lg:text-5xl font-extrabold text-white text-center pb-4">API -Proyect</h2>
+            <main className="square bg-gray-800 rounded-4xl">
+                <form onSubmit={onSubmitHandler} className="flex flex-col gap-6 items-center justify-center">
+                    <h2 className="uppercase text-5xl lg:text-5xl font-extrabold text-gray-300 text-center pb-4">API -Proyect</h2>
 
-                    {error && <p className="w-full rounded p-6 text-center text-white font-roboto bg-yellow-700 select-none">
+                    {error && <p className="w-full rounded p-6 text-center text-white font-roboto bg-yellow-700 select-none hover:bg-yellow-800">
                     Something went wrong. Please verify that the credentials are valid or correct
                     </p>}
 
-                    <input className="font-big w-full text-gray-700 focus:outline-none focus:ring focus:border-blue-500 p-4 rounded"
+                    <input className="font-big w-full text-gray-700 focus:outline-none focus:ring focus:border-blue-500 p-4 rounded bg-gray-300"
                         type='text'
                         value={username}
                         placeholder='Enter your username'
                         onChange={(e) => onChange(e, setUsername)}
                     />
 
-                    <input className="font-big w-full text-gray-700 focus:outline-none focus:ring focus:border-blue-500 p-4 rounded"
+                    <input className="font-big w-full text-gray-700 focus:outline-none focus:ring focus:border-blue-500 p-4 rounded bg-gray-300"
                         type="password"
                         placeholder="Enter your password"
                         onChange={(e) => onChange(e, setPassword)}
                         value={password}
                     />
 
-                    <button className="mt-6 w-full transition rounded border border-blue-500 duration-300 ease-in-out text-xl text-extrabold bg-blue-500 hover:bg-blue-800 p-4 text-gray-100">Sign In </button>
+                    <button className="mt-6 w-1/4 bg-blue-700 hover:bg-blue-400 font-bold py-2 px-4 border-b-4 border-blue-500 hover:border-blue-900 rounded text-gray-100 tracking-widest">Sign In </button>
                 </form>
             </main>
         </div>
