@@ -10,6 +10,7 @@ import Feed from './pages/Feed/Feed';
 import RedirectUser from './pages/Redirect/RedirectUser';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserProvider } from './Context/UserContext';
+import Private from './components/PrivateRoute/PrivateRoute';
 
 ReactDOM.render(
   <UserProvider>
@@ -19,10 +20,10 @@ ReactDOM.render(
       {/* default route */}
       <Route path="/" element={<App />} />
       
-       <Route path="/login" element={<Login />} />
-      
-      <Route path="/feed" element={<Feed />} />
-      <Route path="/user" element={<User />} />
+      <Route path="/login" element={<Login />} />
+      {/* usaremos role?? (en esta parte) */}
+      <Route path="/feed" element={<Private role=""> <Feed /> </Private>} />
+      <Route path="/user" element={<Private role=""> <User /> </Private>} />
       <Route path="/redirect" element={<RedirectUser />} />
       {/* test route */}
       <Route path="test" element={<Test />} />

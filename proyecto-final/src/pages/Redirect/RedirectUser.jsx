@@ -23,7 +23,7 @@ const RedirectUser = () => {
       </div>
     );
 
-  return <Navigate replace to={rolePages[user.role] ?? '/'} />;
+  return <Navigate replace to={rolePages.user ?? '/'} />;
 };
 
 export default RedirectUser;

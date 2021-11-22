@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useUserContext } from '../../Context/UserContext';
 import Footer from './Footer';
 import { BiUserCircle } from 'react-icons/bi';
 import classes from './Feed.module.css';
@@ -13,6 +14,7 @@ import {
 import Comments from '../../components/Comments/Comments';
 
 const Feed = () => {
+  const { token } = useUserContext();
   // temp token log
   // const username = 'gp3_user@test.com';
   // const password = 'IMeFecQn7IVA3eeH';
