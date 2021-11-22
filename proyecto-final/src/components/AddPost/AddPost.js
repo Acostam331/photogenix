@@ -3,13 +3,30 @@ import './AddPost.css';
 import { FaTimes } from 'react-icons/fa';
 import { setNewPost } from '../../services/Posts.services';
 
-const AddPost = ({ setIsNewPost, token }) => {
+const AddPost = ({ setIsNewPost, token, setAlertModal, cleanAlert }) => {
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
   const [image, setImage] = useState('');
 
   const addPostHandler = async () => {
-    await setNewPost(token, title, desc, image);
+    if (desc.length >= 8 && title.length >= 8) {
+      await setNewPost(token, title, desc, image);
+
+      setIsNewPost(false);
+      setTitle('');
+      setImage('');
+      setDesc('');
+    } else {
+      setAlertModal({
+        isAlert: true,
+        message: 'La descripcion y titulo deben tener al menos 8 caracteres.',
+        type: 'bg-red-400',
+      });
+
+      setTimeout(() => {
+        cleanAlert();
+      }, 5000);
+    }
   };
 
   return (

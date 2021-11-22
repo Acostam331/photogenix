@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './card.css';
 
-import { BiHeart, BiBookmark, BiUserCircle, BiComment } from 'react-icons/bi';
+import {
+  BiHeart,
+  BiBookmark,
+  BiUserCircle,
+  BiComment,
+  BiPencil,
+  BiBlock,
+} from 'react-icons/bi';
 
 const Card = ({
   _id,
@@ -12,18 +19,19 @@ const Card = ({
   likes,
   comments,
   setComments,
+  role,
   addNewLike = () => {},
-  addNewFav = () => {}
+  addNewFav = () => {},
 }) => {
   const [isMine, setIsMine] = useState(false);
-  let myuser = "gp3_user"; // tmp...
+  let myuser = 'gp3_user'; // tmp...
 
   const setNewFav = () => {
     addNewFav();
   };
 
   useEffect(() => {
-    likes.forEach(user => {
+    likes.forEach((user) => {
       if (user.username === myuser) {
         setIsMine(true);
       }
@@ -45,6 +53,22 @@ const Card = ({
         <h2 className="text-gray-300">{description}</h2>
       </div>
       <div className="flex justify-end px-4 pb-4">
+        {role === 'user' ? (
+          ''
+        ) : (
+          <>
+            <div className="flex">
+              <button>
+                <BiPencil className="card-icons edit-icon mx-2" />
+              </button>
+            </div>
+            <div className="flex">
+              <button>
+                <BiBlock className="card-icons block-icon mx-2" />
+              </button>
+            </div>
+          </>
+        )}
         <div className="flex">
           {likes.length > 0 ? <p className="text-white">{likes.length}</p> : ''}
           <button
@@ -52,7 +76,11 @@ const Card = ({
               addNewLike();
             }}
           >
-            <BiHeart className={`card-icons heart-icon mx-2 ${isMine && 'icon-filled'}`} />
+            <BiHeart
+              className={`card-icons heart-icon mx-2 ${
+                isMine && 'icon-filled'
+              }`}
+            />
           </button>
         </div>
         <div className="flex">

@@ -12,10 +12,11 @@ import {
   setNewFavorite,
 } from '../../services/Posts.services';
 import Comments from '../../components/Comments/Comments';
-// import AddPost from '../../components/AddPost/AddPost';
+import AddPost from '../../components/AddPost/AddPost';
 
 const Feed = () => {
-  const { token } = useUserContext();
+  const { token, user } = useUserContext();
+  const role = user.role;
   // temp token log
   // const username = 'gp3_user@test.com';
   // const password = 'IMeFecQn7IVA3eeH';
@@ -36,7 +37,7 @@ const Feed = () => {
   });
 
   // TO CHANGE ON ADMIN FEED
-  // const [isNewPost, setIsNewPost] = useState(true);
+  const [isNewPost, setIsNewPost] = useState(false);
 
   const getData = useCallback(async () => {
     setIsLoading(true);
@@ -127,6 +128,7 @@ const Feed = () => {
                   setComments={setComments}
                   addNewLike={() => addNewLikeHandler(post._id)}
                   addNewFav={() => addNewFavHandler(post._id)}
+                  role={role}
                 />
               );
             })}
@@ -143,9 +145,22 @@ const Feed = () => {
         ) : (
           ''
         )}
-        {/* {isNewPost ? <AddPost token={token} setIsNewPost={setIsNewPost} /> : ''} */}
+        {isNewPost ? (
+          <AddPost
+            token={token}
+            setIsNewPost={setIsNewPost}
+            setAlertModal={setAlertModal}
+            cleanAlert={cleanAlert}
+          />
+        ) : (
+          ''
+        )}
       </div>
-      <Footer changeTab={(tab) => changeTabHandler(tab)} />
+      <Footer
+        changeTab={(tab) => changeTabHandler(tab)}
+        role={role}
+        setIsNewPost={setIsNewPost}
+      />
     </main>
   );
 };
