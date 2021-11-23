@@ -5,9 +5,11 @@ import classes from './MyPosts.module.css';
 import Card from '../../components/Card/Card';
 import { getMyPosts, setStatusPost } from '../../services/Posts.services';
 import { useUserContext } from '../../Context/UserContext';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const MyPosts = () => {
   const [posts, setPosts] = useState([]);
+  const [page, setPage] = useState(0);
   const { token, user } = useUserContext();
   const role = user.role;
   const username = user.username;
@@ -20,17 +22,20 @@ const MyPosts = () => {
   });
 
   const getData = useCallback(async () => {
+    console.log("Obteniendo posts: page", page);
     setIsLoading(true);
     let response = {};
     try {
-      response = await getMyPosts(token);
+      response = await getMyPosts(token, page);
 
-      setPosts(response.posts);
+      setPosts(prevPosts => {
+        return [...prevPosts, ...response.posts];
+      });
       setIsLoading(response.isLoading);
     } catch (error) {
       console.log(error);
     }
-  }, [token]);
+  }, [token, page]);
 
   useEffect(() => {
     getData();
@@ -67,7 +72,7 @@ const MyPosts = () => {
           </Link>
         </div>
       </header>
-      <div className={classes.posts}>
+      <div id="scrollable" className={classes.posts}>
         {alertModal.isAlert ? (
           <div
             className={`flex py-2 px-8 w-5/6 alert-card rounded-3xl z-50 ${classes.alertCard} ${alertModal.type}`}
@@ -77,9 +82,12 @@ const MyPosts = () => {
         ) : (
           ''
         )}
-        {isLoading
-          ? 'loading...'
-          : posts.map((post) => {
+        <InfiniteScroll
+          dataLength={posts.length}
+          next={() => setPage(page + 1)}
+          hasMore={true}
+          scrollableTarget="scrollable">
+            {posts.map((post) => {
               return (
                 <Card
                   key={post._id}
@@ -92,6 +100,8 @@ const MyPosts = () => {
                 />
               );
             })}
+        </InfiniteScroll>
+        {isLoading ? 'loading...' : ''}
       </div>
     </main>
   );

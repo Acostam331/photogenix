@@ -14,6 +14,7 @@ import {
 } from '../../services/Posts.services';
 import Comments from '../../components/Comments/Comments';
 import AddPost from '../../components/AddPost/AddPost';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const Feed = () => {
   const { token, user } = useUserContext();
@@ -61,7 +62,7 @@ const Feed = () => {
 
   useEffect(() => {
     getData();
-  }, [tab, page, getData]);
+  }, [getData]);
 
   const cleanAlert = () => {
     setAlertModal({ isAlert: false, icon: '', message: '', type: '' });
@@ -117,11 +118,6 @@ const Feed = () => {
     setTab(tab);
   };
 
-  const pageChange = () => {
-    console.log("Page change!!");
-    setPage(page + 1)
-  };
-
   console.log(posts);
 
   return (
@@ -135,7 +131,7 @@ const Feed = () => {
           </Link>
         </div>
       </header>
-      <div className={classes.posts}>
+      <div id="scrollable" className={classes.posts}>
         {/* alert modal */}
         {alertModal.isAlert ? (
           <div
@@ -147,23 +143,28 @@ const Feed = () => {
           ''
         )}
 
-        {posts.map((post) => {
-          return (
-            <Card
-              key={post._id}
-              {...post}
-              token={token}
-              setComments={setComments}
-              addNewLike={() => addNewLikeHandler(post._id)}
-              addNewFav={() => addNewFavHandler(post._id)}
-              addStatus={() => addStatusHandler(post._id)}
-              role={role}
-              username={username}
-            />
-          );
-        })}
+        <InfiniteScroll
+          dataLength={posts.length}
+          next={() => setPage(page + 1)}
+          hasMore={true}
+          scrollableTarget="scrollable">
+            {posts.map((post) => {
+              return (
+                <Card
+                  key={post._id}
+                  {...post}
+                  token={token}
+                  setComments={setComments}
+                  addNewLike={() => addNewLikeHandler(post._id)}
+                  addNewFav={() => addNewFavHandler(post._id)}
+                  addStatus={() => addStatusHandler(post._id)}
+                  role={role}
+                  username={username}
+                />
+              );
+            })}
+        </InfiniteScroll>
         {isLoading ? 'loading...' : ''}
-        {<button type="button" onClick={() => pageChange()}>Get more</button>}
         
         {comments.isComments ? (
           <Comments
