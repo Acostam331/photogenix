@@ -198,6 +198,7 @@ export const setNewComment = async (token, id, message) => {
   }
 };
 
+// Create posts
 export const setNewPost = async (token, title, desc, image) => {
   let response = undefined;
   try {
@@ -213,6 +214,25 @@ export const setNewPost = async (token, title, desc, image) => {
         title: `${title}`,
         description: `${desc}`,
         image: `${image}`,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  } finally {
+    return response;
+  }
+};
+
+// Enable/disable posts
+export const setStatusPost = async (token, id) => {
+  let response = undefined;
+  try {
+    response = await axios({
+      method: 'PATCH',
+      baseURL: BASE_URL,
+      url: `/post/toggle/${id}`,
+      headers: {
+        authorization: `Bearer ${token}`,
       },
     });
   } catch (error) {

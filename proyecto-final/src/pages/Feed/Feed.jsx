@@ -10,6 +10,7 @@ import {
   getFavorites,
   setNewLike,
   setNewFavorite,
+  setStatusPost,
 } from '../../services/Posts.services';
 import Comments from '../../components/Comments/Comments';
 import AddPost from '../../components/AddPost/AddPost';
@@ -61,6 +62,21 @@ const Feed = () => {
     setAlertModal({ isAlert: false, icon: '', message: '', type: '' });
   };
 
+  const addStatusHandler = async (id) => {
+    let response = await setStatusPost(token, id);
+    if (response.statusText === 'OK') {
+      setAlertModal({
+        isAlert: true,
+        message: 'Has cambiado el estado de este post',
+        type: 'bg-green-400',
+      });
+
+      setTimeout(() => {
+        cleanAlert();
+      }, 5000);
+    }
+  };
+
   const addNewLikeHandler = async (id) => {
     let response = await setNewLike(token, id);
     if (response.statusText === 'OK') {
@@ -94,6 +110,8 @@ const Feed = () => {
   const changeTabHandler = (tab) => {
     setTab(tab);
   };
+
+  console.log(posts);
 
   return (
     // html and design
@@ -129,6 +147,7 @@ const Feed = () => {
                   setComments={setComments}
                   addNewLike={() => addNewLikeHandler(post._id)}
                   addNewFav={() => addNewFavHandler(post._id)}
+                  addStatus={() => addStatusHandler(post._id)}
                   role={role}
                   username={username}
                 />

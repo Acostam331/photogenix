@@ -23,6 +23,7 @@ const Card = ({
   username,
   addNewLike = () => {},
   addNewFav = () => {},
+  addStatus = () => {},
 }) => {
   const [isMine, setIsMine] = useState(false);
   let myuser = 'gp3_user'; // tmp...
@@ -62,7 +63,11 @@ const Card = ({
               </button>
             </div>
             <div className="flex">
-              <button>
+              <button
+                onClick={() => {
+                  addStatus();
+                }}
+              >
                 <BiBlock className="card-icons block-icon mx-2" />
               </button>
             </div>
