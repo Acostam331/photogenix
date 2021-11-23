@@ -17,10 +17,12 @@ const Card = ({
   image,
   user,
   likes,
+  active,
   comments,
   setComments,
   role,
   username,
+  isMyPost,
   addNewLike = () => {},
   addNewFav = () => {},
   addStatus = () => {},
@@ -55,7 +57,8 @@ const Card = ({
         <h2 className="text-gray-300">{description}</h2>
       </div>
       <div className="flex justify-end px-4 pb-4">
-        {role === 'admin' && username === user.username ? (
+        {(role === 'admin' && username === user.username) ||
+        (role === 'admin' && username === user.username && isMyPost) ? (
           <>
             <div className="flex">
               <button>
@@ -68,50 +71,64 @@ const Card = ({
                   addStatus();
                 }}
               >
-                <BiBlock className="card-icons block-icon mx-2" />
+                <BiBlock
+                  className={`card-icons block-icon mx-2 ${
+                    active ? '' : 'icon-filled'
+                  }`}
+                />
               </button>
             </div>
           </>
         ) : (
           ''
         )}
-        <div className="flex">
-          {likes.length > 0 ? <p className="text-white">{likes.length}</p> : ''}
-          <button
-            onClick={() => {
-              addNewLike();
-            }}
-          >
-            <BiHeart
-              className={`card-icons heart-icon mx-2 ${
-                isMine && 'icon-filled'
-              }`}
-            />
-          </button>
-        </div>
-        <div className="flex">
-          {comments.length > 0 ? (
-            <p className="text-white">{comments.length}</p>
-          ) : (
-            ''
-          )}
-          <button
-            onClick={() => {
-              setComments({ isComments: true, postId: `${_id}` });
-            }}
-          >
-            <BiComment className="card-icons comment-icon mx-2" />
-          </button>
-        </div>
-        <div className="flex">
-          <button
-            onClick={() => {
-              setNewFav();
-            }}
-          >
-            <BiBookmark className="card-icons bookmark-icon ml-2" />
-          </button>
-        </div>
+        {isMyPost ? (
+          ''
+        ) : (
+          <>
+            <div className="flex">
+              {likes.length > 0 ? (
+                <p className="text-white">{likes.length}</p>
+              ) : (
+                ''
+              )}
+              <button
+                onClick={() => {
+                  addNewLike();
+                }}
+              >
+                <BiHeart
+                  className={`card-icons heart-icon mx-2 ${
+                    isMine && 'icon-filled'
+                  }`}
+                />
+              </button>
+            </div>
+            <div className="flex">
+              {comments.length > 0 ? (
+                <p className="text-white">{comments.length}</p>
+              ) : (
+                ''
+              )}
+              <button
+                onClick={() => {
+                  setComments({ isComments: true, postId: `${_id}` });
+                }}
+              >
+                <BiComment className="card-icons comment-icon mx-2" />
+              </button>
+            </div>
+            <div className="flex">
+              <button
+                onClick={() => {
+                  setNewFav();
+                }}
+              >
+                <BiBookmark className="card-icons bookmark-icon ml-2" />
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

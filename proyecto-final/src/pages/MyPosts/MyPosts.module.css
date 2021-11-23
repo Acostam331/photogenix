@@ -33,7 +33,7 @@ header .userSection {
 }
 
 .posts {
-  height: 84vh;
+  height: 96vh;
   width: 100vw;
   overflow: auto;
 }
