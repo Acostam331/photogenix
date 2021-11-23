@@ -59,6 +59,29 @@ export const getAllPosts = async (token) => {
   return { isLoading: false, posts: response ?? [] };
 };
 
+export const getMyPosts = async (token) => {
+  let response = undefined;
+  try {
+    const posts = await axios({
+      method: 'GET',
+      baseURL: BASE_URL,
+      url: '/post/owned?limit=15&page=0',
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (posts) {
+      // console.log(posts.data.data);
+      response = posts.data.data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+  return { isLoading: false, posts: response ?? [] };
+};
+
 /* one post */
 
 export const getOnePost = async (token, id) => {

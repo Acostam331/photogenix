@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useUserContext } from '../../Context/UserContext';
 import { useNavigate } from 'react-router';
@@ -38,7 +39,7 @@ const User = () => {
             to="/myposts"
             className={`rounded-lg mx-2 ${classes.ownPostsButton}`}
           >
-            Tus posts
+            Mis posts
           </Link>
         ) : (
           ''
