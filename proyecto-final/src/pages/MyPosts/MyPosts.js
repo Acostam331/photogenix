@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { BiHome } from 'react-icons/bi';
 import classes from './MyPosts.module.css';
@@ -19,7 +19,7 @@ const MyPosts = () => {
     type: '',
   });
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     setIsLoading(true);
     let response = {};
     try {
@@ -30,11 +30,11 @@ const MyPosts = () => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [getData]);
 
   console.log(posts);
 
