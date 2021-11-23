@@ -30,7 +30,8 @@ const Feed = () => {
   // const { posts, isLoading } = useGetFavorites(token);
   const [posts, setPosts] = useState([]);
   const [tab, setTab] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const [comments, setComments] = useState({ isComments: false, postId: '' });
   const [alertModal, setAlertModal] = useState({
     isAlert: false,
@@ -42,21 +43,25 @@ const Feed = () => {
   const [isNewPost, setIsNewPost] = useState(false);
 
   const getData = useCallback(async () => {
+    console.log("Obteniendo posts: page", page);
     setIsLoading(true);
     let response = {};
     if (tab === 1) {
-      response = await getAllPosts(token);
+      response = await getAllPosts(token, page);
+      setPosts(prevPosts => {
+        return [...prevPosts, ...response.posts];
+      });
     } else {
       response = await getFavorites(token);
+      setPosts(response.posts);
     }
 
-    setPosts(response.posts);
     setIsLoading(response.isLoading);
-  }, [tab, token]);
+  }, [tab, page, token]);
 
   useEffect(() => {
     getData();
-  }, [tab, getData]);
+  }, [tab, page, getData]);
 
   const cleanAlert = () => {
     setAlertModal({ isAlert: false, icon: '', message: '', type: '' });
@@ -108,7 +113,13 @@ const Feed = () => {
   };
 
   const changeTabHandler = (tab) => {
+    setPosts([]);
     setTab(tab);
+  };
+
+  const pageChange = () => {
+    console.log("Page change!!");
+    setPage(page + 1)
   };
 
   console.log(posts);
@@ -136,24 +147,24 @@ const Feed = () => {
           ''
         )}
 
-        {isLoading
-          ? 'loading...'
-          : posts.map((post) => {
-              return (
-                <Card
-                  key={post._id}
-                  {...post}
-                  token={token}
-                  setComments={setComments}
-                  addNewLike={() => addNewLikeHandler(post._id)}
-                  addNewFav={() => addNewFavHandler(post._id)}
-                  addStatus={() => addStatusHandler(post._id)}
-                  role={role}
-                  username={username}
-                />
-              );
-            })}
-
+        {posts.map((post) => {
+          return (
+            <Card
+              key={post._id}
+              {...post}
+              token={token}
+              setComments={setComments}
+              addNewLike={() => addNewLikeHandler(post._id)}
+              addNewFav={() => addNewFavHandler(post._id)}
+              addStatus={() => addStatusHandler(post._id)}
+              role={role}
+              username={username}
+            />
+          );
+        })}
+        {isLoading ? 'loading...' : ''}
+        {<button type="button" onClick={() => pageChange()}>Get more</button>}
+        
         {comments.isComments ? (
           <Comments
             comments={comments}

@@ -36,13 +36,13 @@ export const useGetAll = (token) => {
   return { isLoading, posts };
 };*/
 
-export const getAllPosts = async (token) => {
+export const getAllPosts = async (token, page = 0) => {
   let response = undefined;
   try {
     const posts = await axios({
       method: 'GET',
       baseURL: BASE_URL,
-      url: '/post/all?limit=15&page=0',
+      url: `/post/all?limit=15&page=${page}`,
       headers: {
         authorization: `Bearer ${token}`,
       },
