@@ -17,6 +17,7 @@ import AddPost from '../../components/AddPost/AddPost';
 const Feed = () => {
   const { token, user } = useUserContext();
   const role = user.role;
+  const username = user.username;
   // temp token log
   // const username = 'gp3_user@test.com';
   // const password = 'IMeFecQn7IVA3eeH';
@@ -129,6 +130,7 @@ const Feed = () => {
                   addNewLike={() => addNewLikeHandler(post._id)}
                   addNewFav={() => addNewFavHandler(post._id)}
                   role={role}
+                  username={username}
                 />
               );
             })}

@@ -20,6 +20,7 @@ const Card = ({
   comments,
   setComments,
   role,
+  username,
   addNewLike = () => {},
   addNewFav = () => {},
 }) => {
@@ -53,9 +54,7 @@ const Card = ({
         <h2 className="text-gray-300">{description}</h2>
       </div>
       <div className="flex justify-end px-4 pb-4">
-        {role === 'user' ? (
-          ''
-        ) : (
+        {role === 'admin' && username === user.username ? (
           <>
             <div className="flex">
               <button>
@@ -68,6 +67,8 @@ const Card = ({
               </button>
             </div>
           </>
+        ) : (
+          ''
         )}
         <div className="flex">
           {likes.length > 0 ? <p className="text-white">{likes.length}</p> : ''}
