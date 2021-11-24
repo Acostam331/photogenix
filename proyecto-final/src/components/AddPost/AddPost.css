@@ -17,3 +17,9 @@
 .button-container {
   height: 15%;
 }
+
+.image-verifier {
+  height: 15vh;
+  margin-top: -2rem;
+  margin-bottom: 2rem;
+}

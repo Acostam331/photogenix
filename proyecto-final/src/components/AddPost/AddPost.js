@@ -7,6 +7,7 @@ const AddPost = ({ setIsNewPost, token, setAlertModal, cleanAlert }) => {
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
   const [image, setImage] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
 
   const addPostHandler = async () => {
     if (desc.length >= 8 && title.length >= 8) {
@@ -29,6 +30,12 @@ const AddPost = ({ setIsNewPost, token, setAlertModal, cleanAlert }) => {
     }
   };
 
+  const changeImageHandler = () => {
+    if (image !== '') {
+      setImageUrl(image);
+    }
+  };
+
   return (
     <div className="add-card w-full bg-gray-800 rounded-3xl absolute z-40">
       <div className="flex flex-nowrap title-container justify-between">
@@ -46,6 +53,9 @@ const AddPost = ({ setIsNewPost, token, setAlertModal, cleanAlert }) => {
         </button>
       </div>
       <div className="new-input-container flex flex-col m-8 items-center">
+        <div className={`image-verifier ${imageUrl !== '' ? '' : 'p-2'}`}>
+          <img src={imageUrl} alt="Esperando imagen" />
+        </div>
         <form className="w-full flex flex-col items-center justify-center">
           <div className="my-8 sm:w-1/2">
             <h1 className="input-label my-2 text-white">
@@ -86,15 +96,26 @@ const AddPost = ({ setIsNewPost, token, setAlertModal, cleanAlert }) => {
               }}
             />
           </div>
-          <button
-            type="button"
-            onClick={() => {
-              addPostHandler();
-            }}
-            className="rounded-2xl px-4 py-2 m-8 bg-indigo-900"
-          >
-            Crear Post
-          </button>
+          <div className="flex">
+            <button
+              type="button"
+              onClick={() => {
+                changeImageHandler();
+              }}
+              className="rounded-2xl px-4 py-2 m-8 bg-indigo-900"
+            >
+              verificar
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                addPostHandler();
+              }}
+              className="rounded-2xl px-4 py-2 m-8 bg-indigo-900"
+            >
+              Crear Post
+            </button>
+          </div>
         </form>
       </div>
     </div>

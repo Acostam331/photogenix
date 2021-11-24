@@ -1,4 +1,4 @@
-import { BiWorld, BiCircle, BiBookmark, BiPlus } from 'react-icons/bi';
+import { BiWorld, BiBookmark, BiPlus } from 'react-icons/bi';
 import classes from './Feed.module.css';
 
 const Footer = ({ changeTab = () => {}, role, setIsNewPost }) => {
@@ -10,9 +10,7 @@ const Footer = ({ changeTab = () => {}, role, setIsNewPost }) => {
         <BiWorld className={classes.icons} />
       </button>
       {role === 'user' ? (
-        <button>
-          <BiCircle className={classes.icons} />
-        </button>
+        ''
       ) : (
         <button
           onClick={() => {
