@@ -83,13 +83,28 @@ const Feed = () => {
     }
   };
 
-  const addNewLikeHandler = async (id) => {
+  const addNewLikeHandler = async (id, isMine) => {
     let response = await setNewLike(token, id);
     if (response.statusText === 'OK') {
+      let msg = isMine ? 'Has removido tu like' : 'Has dado like';
       setAlertModal({
         isAlert: true,
-        message: 'Has dado like',
+        message: msg,
         type: 'bg-green-400',
+      });
+
+      setPosts(prevPosts => {
+        let index = prevPosts.findIndex(x => x._id === id);
+        if (isMine) {
+          let subIndex = prevPosts[index].likes.findIndex(x => x.username === user.username);
+          // console.log("Eliminando like");
+          prevPosts[index].likes.splice(subIndex, 1);
+        } else {
+          prevPosts[index].likes.push({username: user.username});
+          // console.log("Dando like");
+        }
+
+        return prevPosts;
       });
 
       setTimeout(() => {
@@ -115,6 +130,7 @@ const Feed = () => {
 
   const changeTabHandler = (tab) => {
     setPosts([]);
+    setPage(0);
     setTab(tab);
   };
 
@@ -155,11 +171,12 @@ const Feed = () => {
                   {...post}
                   token={token}
                   setComments={setComments}
-                  addNewLike={() => addNewLikeHandler(post._id)}
+                  addNewLike={(isMine) => addNewLikeHandler(post._id, isMine)}
                   addNewFav={() => addNewFavHandler(post._id)}
                   addStatus={() => addStatusHandler(post._id)}
                   role={role}
                   username={username}
+                  currentuser={user.username}
                 />
               );
             })}

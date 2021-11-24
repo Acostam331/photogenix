@@ -26,9 +26,9 @@ const Card = ({
   addNewLike = () => {},
   addNewFav = () => {},
   addStatus = () => {},
+  currentuser
 }) => {
   const [isMine, setIsMine] = useState(false);
-  let myuser = 'gp3_user'; // tmp...
 
   const setNewFav = () => {
     addNewFav();
@@ -36,11 +36,16 @@ const Card = ({
 
   useEffect(() => {
     likes.forEach((user) => {
-      if (user.username === myuser) {
+      if (user.username === currentuser) {
         setIsMine(true);
       }
     });
-  }, [likes, myuser]);
+  }, [likes, currentuser]);
+
+  const handleLike = () => {
+    addNewLike(isMine);
+    setIsMine(!isMine);
+  }
 
   return (
     // html and design
@@ -94,7 +99,7 @@ const Card = ({
               )}
               <button
                 onClick={() => {
-                  addNewLike();
+                  handleLike();
                 }}
               >
                 <BiHeart
