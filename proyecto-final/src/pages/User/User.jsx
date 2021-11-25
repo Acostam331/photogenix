@@ -22,7 +22,7 @@ const User = () => {
     // html and design
     <main className="bg-indigo-900 h-screen">
       <header className={classes.dCenter}>
-        <h1 className="text-white">User</h1>
+        <h1 className="text-3xl lg:text-3xl font-extrabold text-gray-300 text-center pb-4 mt-8">User</h1>
         <div className={classes.returnSection}>
           <Link to="/feed">
             <MdOutlineArrowBackIosNew className={classes.iconReturn} />
@@ -30,7 +30,7 @@ const User = () => {
         </div>
       </header>
       <div className={`h-screen ${classes.userPage}`}>
-        <h2>Bienvenido!</h2>
+        <h2 className="text-4xl lg:text-4xl font-extrabold text-gray-300 text-center pb-4 mt-8">Bienvenido!</h2>
         <h3>{username}</h3>
       </div>
       <div className={classes.logOut}>

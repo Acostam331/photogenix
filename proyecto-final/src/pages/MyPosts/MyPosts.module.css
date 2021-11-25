@@ -78,8 +78,10 @@ footer > button {
 }
 
 .iconUser {
-  font-size: 3.5vh;
+  font-size: 8vh;
   color: white;
+  margin-top: 5vh;
+  border-radius: 100%;
 }
 
 .alertCard {

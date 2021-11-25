@@ -52,7 +52,7 @@ const AddPost = ({ setIsNewPost, setAlertModal, cleanAlert }) => {
     <div className="add-card w-full bg-gray-800 rounded-3xl absolute z-40">
       <div className="flex flex-nowrap title-container justify-between">
         <div className="m-4"></div>
-        <p className="text-white font-thin text-3xl m-4 self-center">
+        <p className="text-5xl lg:text-5xl font-extrabold text-gray-300 text-center pb-4 mt-10">
           Nuevo Post
         </p>
         <button
@@ -117,16 +117,16 @@ const AddPost = ({ setIsNewPost, setAlertModal, cleanAlert }) => {
               onClick={() => {
                 changeImageHandler();
               }}
-              className="rounded-2xl px-4 py-2 m-8 bg-indigo-900"
+              className="rounded-2xl px-4 py-2 m-8 bg-indigo-900 text-white"
             >
               Verificar imagen
             </button>
             <button
-              type="button"
+              type="button" 
               onClick={() => {
                 addPostHandler();
               }}
-              className="rounded-2xl px-4 py-2 m-8 bg-indigo-900"
+              className="rounded-2xl px-4 py-2 m-8 bg-indigo-900 text-white"
             >
               Crear Post
             </button>

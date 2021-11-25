@@ -72,7 +72,7 @@ const MyPosts = () => {
   return (
     <main className="bg-indigo-900 h-screen">
       <header className={classes.dCenter}>
-        <h1 className="text-white">Mis Posts</h1>
+        <h1 className="text-3xl lg:text-3xl font-extrabold text-gray-300 text-center pb-4 mt-8">Mis Posts</h1>
         <div className={classes.userSection}>
           <Link to="/feed">
             <BiHome className={classes.iconUser} />
