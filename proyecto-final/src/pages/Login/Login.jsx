@@ -33,25 +33,24 @@ export default function Login() {
 
   return (
     // html and design
-    <div className="flex justify-center items-center min-h-screen bg-gray-800">
-      <main className="square bg-gray-800 rounded-4xl">
+    <div className="flex justify-center items-center min-h-screen bg-indigo-900">
+      <main className="square rounded-4xl">
         <form
           onSubmit={onSubmitHandler}
           className="flex flex-col gap-6 items-center justify-center"
         >
           <h2 className="uppercase text-5xl lg:text-5xl font-extrabold text-gray-300 text-center pb-4">
-            API-Project
+            Proyecto REST
           </h2>
 
           {error && (
             <p className="w-full rounded p-6 text-center text-white font-roboto bg-yellow-700 select-none hover:bg-yellow-800">
-              Something went wrong. Please verify that the credentials are valid
-              or correct
+              Por favor verifica tus credenciales.
             </p>
           )}
 
           <input
-            className="font-big w-full text-gray-700 focus:outline-none focus:ring focus:border-blue-500 p-4 rounded bg-gray-300"
+            className="w-full text-gray-700 rounded-2xl focus:outline-none focus:ring py-2 px-4 bg-gray-300"
             type="text"
             value={username}
             placeholder="Enter your username"
@@ -59,15 +58,15 @@ export default function Login() {
           />
 
           <input
-            className="font-big w-full text-gray-700 focus:outline-none focus:ring focus:border-blue-500 p-4 rounded bg-gray-300"
+            className="w-full text-gray-700 rounded-2xl focus:outline-none focus:ring py-2 px-4 bg-gray-300"
             type="password"
             placeholder="Enter your password"
             onChange={(e) => onChange(e, setPassword)}
             value={password}
           />
 
-          <button className="mt-6 w-1/4 bg-blue-700 hover:bg-blue-400 font-bold py-2 px-4 border-b-4 border-blue-500 hover:border-blue-900 rounded text-gray-100 tracking-widest">
-            Sign In{' '}
+          <button className="rounded-2xl mt-6 w-1/4 bg-gray-800 py-2 px-4 text-white">
+            Iniciar sesión
           </button>
         </form>
       </main>

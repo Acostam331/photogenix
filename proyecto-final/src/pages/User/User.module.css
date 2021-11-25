@@ -41,7 +41,7 @@ header .returnSection {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  padding-top: 20vh;
   color: white;
 }
 
@@ -59,6 +59,7 @@ header .returnSection {
   position: absolute;
   bottom: 3vh;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 
@@ -78,6 +79,11 @@ header .returnSection {
 
 @media screen and (max-width: 1000px) and (max-height: 900px) {
   .logOutButton {
+    padding: 1vh 7vw 1vh 7vw;
+    margin-top: 2vh;
+  }
+
+  .ownPostsButton {
     padding: 1vh 7vw 1vh 7vw;
   }
 }

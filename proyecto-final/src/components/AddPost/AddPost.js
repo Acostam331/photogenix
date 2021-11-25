@@ -26,13 +26,23 @@ const AddPost = ({ setIsNewPost, token, setAlertModal, cleanAlert }) => {
 
       setTimeout(() => {
         cleanAlert();
-      }, 5000);
+      }, 2000);
     }
   };
 
   const changeImageHandler = () => {
     if (image !== '') {
       setImageUrl(image);
+    } else {
+      setAlertModal({
+        isAlert: true,
+        message: 'Introduce una URL para tu post.',
+        type: 'bg-red-400',
+      });
+
+      setTimeout(() => {
+        cleanAlert();
+      }, 2000);
     }
   };
 
@@ -54,15 +64,16 @@ const AddPost = ({ setIsNewPost, token, setAlertModal, cleanAlert }) => {
       </div>
       <div className="new-input-container flex flex-col m-8 items-center">
         <div className={`image-verifier ${imageUrl !== '' ? '' : 'p-2'}`}>
-          <img src={imageUrl} alt="Esperando imagen" />
+          {imageUrl !== '' ? <img src={imageUrl} alt="Esperando imagen" /> : ''}
         </div>
         <form className="w-full flex flex-col items-center justify-center">
-          <div className="my-8 sm:w-1/2">
+          <div className="my-2 sm:w-1/2">
             <h1 className="input-label my-2 text-white">
               Ingresa la URL de tu imagen:
             </h1>
             <input
-              className="input-element w-full"
+              className="input-element w-full px-4 py-2 rounded-3xl"
+              placeholder="p. ej. www.unsplash.com/"
               type="text"
               value={image}
               onChange={(e) => {
@@ -70,12 +81,13 @@ const AddPost = ({ setIsNewPost, token, setAlertModal, cleanAlert }) => {
               }}
             />
           </div>
-          <div className="my-8 sm:w-1/2">
+          <div className="my-2 sm:w-1/2">
             <h1 className="input-label my-2 text-white">
               Ingresa un titulo para tu post:
             </h1>
             <input
-              className="input-element w-full"
+              className="input-element w-full px-4 py-2 rounded-3xl"
+              placeholder="p. ej. hoy es un dia soleado..."
               type="text"
               value={title}
               onChange={(e) => {
@@ -83,12 +95,13 @@ const AddPost = ({ setIsNewPost, token, setAlertModal, cleanAlert }) => {
               }}
             />
           </div>
-          <div className="my-8 sm:w-1/2">
+          <div className="my-2 sm:w-1/2">
             <h1 className="input-label my-2 text-white">
               Ingresa la descripcion de tu post:
             </h1>
             <input
-              className="input-element w-full"
+              className="input-element w-full px-4 py-2 rounded-3xl"
+              placeholder="p. ej. deberia llover mas tarde..."
               type="text"
               value={desc}
               onChange={(e) => {
@@ -104,7 +117,7 @@ const AddPost = ({ setIsNewPost, token, setAlertModal, cleanAlert }) => {
               }}
               className="rounded-2xl px-4 py-2 m-8 bg-indigo-900"
             >
-              verificar
+              Verificar imagen
             </button>
             <button
               type="button"

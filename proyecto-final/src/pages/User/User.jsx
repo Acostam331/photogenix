@@ -30,7 +30,7 @@ const User = () => {
         </div>
       </header>
       <div className={`h-screen ${classes.userPage}`}>
-        <h2>Welcome!!</h2>
+        <h2>Bienvenido!</h2>
         <h3>{username}</h3>
       </div>
       <div className={classes.logOut}>
@@ -49,7 +49,7 @@ const User = () => {
           className={`rounded-lg mx-2 ${classes.logOutButton}`}
           onClick={() => onLogOutHandler()}
         >
-          Log out
+          Cerrar sesión
         </button>
       </div>
     </main>

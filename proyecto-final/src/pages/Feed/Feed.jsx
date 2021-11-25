@@ -44,12 +44,12 @@ const Feed = () => {
   const [isNewPost, setIsNewPost] = useState(false);
 
   const getData = useCallback(async () => {
-    console.log("Obteniendo posts: page", page);
+    console.log('Obteniendo posts: page', page);
     setIsLoading(true);
     let response = {};
     if (tab === 1) {
       response = await getAllPosts(token, page);
-      setPosts(prevPosts => {
+      setPosts((prevPosts) => {
         return [...prevPosts, ...response.posts];
       });
     } else {
@@ -79,7 +79,7 @@ const Feed = () => {
 
       setTimeout(() => {
         cleanAlert();
-      }, 5000);
+      }, 2000);
     }
   };
 
@@ -93,14 +93,16 @@ const Feed = () => {
         type: 'bg-green-400',
       });
 
-      setPosts(prevPosts => {
-        let index = prevPosts.findIndex(x => x._id === id);
+      setPosts((prevPosts) => {
+        let index = prevPosts.findIndex((x) => x._id === id);
         if (isMine) {
-          let subIndex = prevPosts[index].likes.findIndex(x => x.username === user.username);
+          let subIndex = prevPosts[index].likes.findIndex(
+            (x) => x.username === user.username
+          );
           // console.log("Eliminando like");
           prevPosts[index].likes.splice(subIndex, 1);
         } else {
-          prevPosts[index].likes.push({username: user.username});
+          prevPosts[index].likes.push({ username: user.username });
           // console.log("Dando like");
         }
 
@@ -109,7 +111,7 @@ const Feed = () => {
 
       setTimeout(() => {
         cleanAlert();
-      }, 5000);
+      }, 2000);
     }
   };
 
@@ -124,7 +126,7 @@ const Feed = () => {
 
       setTimeout(() => {
         cleanAlert();
-      }, 5000);
+      }, 2000);
     }
   };
 
@@ -163,26 +165,27 @@ const Feed = () => {
           dataLength={posts.length}
           next={() => setPage(page + 1)}
           hasMore={true}
-          scrollableTarget="scrollable">
-            {posts.map((post) => {
-              return (
-                <Card
-                  key={post._id}
-                  {...post}
-                  token={token}
-                  setComments={setComments}
-                  addNewLike={(isMine) => addNewLikeHandler(post._id, isMine)}
-                  addNewFav={() => addNewFavHandler(post._id)}
-                  addStatus={() => addStatusHandler(post._id)}
-                  role={role}
-                  username={username}
-                  currentuser={user.username}
-                />
-              );
-            })}
+          scrollableTarget="scrollable"
+        >
+          {posts.map((post) => {
+            return (
+              <Card
+                key={post._id}
+                {...post}
+                token={token}
+                setComments={setComments}
+                addNewLike={(isMine) => addNewLikeHandler(post._id, isMine)}
+                addNewFav={() => addNewFavHandler(post._id)}
+                addStatus={() => addStatusHandler(post._id)}
+                role={role}
+                username={username}
+                currentuser={user.username}
+              />
+            );
+          })}
         </InfiniteScroll>
         {isLoading ? 'loading...' : ''}
-        
+
         {comments.isComments ? (
           <Comments
             comments={comments}

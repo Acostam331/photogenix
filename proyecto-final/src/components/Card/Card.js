@@ -26,7 +26,7 @@ const Card = ({
   addNewLike = () => {},
   addNewFav = () => {},
   addStatus = () => {},
-  currentuser
+  currentuser,
 }) => {
   const [isMine, setIsMine] = useState(false);
 
@@ -45,7 +45,7 @@ const Card = ({
   const handleLike = () => {
     addNewLike(isMine);
     setIsMine(!isMine);
-  }
+  };
 
   return (
     // html and design

@@ -22,13 +22,13 @@ const MyPosts = () => {
   });
 
   const getData = useCallback(async () => {
-    console.log("Obteniendo posts: page", page);
+    console.log('Obteniendo posts: page', page);
     setIsLoading(true);
     let response = {};
     try {
       response = await getMyPosts(token, page);
 
-      setPosts(prevPosts => {
+      setPosts((prevPosts) => {
         return [...prevPosts, ...response.posts];
       });
       setIsLoading(response.isLoading);
@@ -58,7 +58,7 @@ const MyPosts = () => {
 
       setTimeout(() => {
         cleanAlert();
-      }, 5000);
+      }, 2000);
     }
   };
 
@@ -86,20 +86,21 @@ const MyPosts = () => {
           dataLength={posts.length}
           next={() => setPage(page + 1)}
           hasMore={true}
-          scrollableTarget="scrollable">
-            {posts.map((post) => {
-              return (
-                <Card
-                  key={post._id}
-                  {...post}
-                  token={token}
-                  role={role}
-                  username={username}
-                  isMyPost={isMyPost}
-                  addStatus={() => addStatusHandler(post._id)}
-                />
-              );
-            })}
+          scrollableTarget="scrollable"
+        >
+          {posts.map((post) => {
+            return (
+              <Card
+                key={post._id}
+                {...post}
+                token={token}
+                role={role}
+                username={username}
+                isMyPost={isMyPost}
+                addStatus={() => addStatusHandler(post._id)}
+              />
+            );
+          })}
         </InfiniteScroll>
         {isLoading ? 'loading...' : ''}
       </div>
