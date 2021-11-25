@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import './AddPost.css';
 import { FaTimes } from 'react-icons/fa';
 import { setNewPost } from '../../services/Posts.services';
+import { useUserContext } from '../../Context/UserContext';
 
-const AddPost = ({ setIsNewPost, token, setAlertModal, cleanAlert }) => {
+const AddPost = ({ setIsNewPost, setAlertModal, cleanAlert }) => {
+  const { token } = useUserContext();
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
   const [image, setImage] = useState('');

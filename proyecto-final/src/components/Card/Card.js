@@ -73,7 +73,7 @@ const Card = ({
             <div className="flex">
               <button
                 onClick={() => {
-                  addStatus();
+                  addStatus(active);
                 }}
               >
                 <BiBlock

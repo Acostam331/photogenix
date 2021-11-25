@@ -47,12 +47,19 @@ const MyPosts = () => {
     setAlertModal({ isAlert: false, icon: '', message: '', type: '' });
   };
 
-  const addStatusHandler = async (id) => {
+  const addStatusHandler = async (id, status) => {
     let response = await setStatusPost(token, id);
     if (response.statusText === 'OK') {
+      setPosts(prevPosts => {
+        let index = prevPosts.findIndex((x) => x._id === id);
+        prevPosts[index].active = !status;
+
+        return prevPosts;
+      });
+
       setAlertModal({
         isAlert: true,
-        message: 'Has cambiado el estado de este post',
+        message: 'Has cambiado el estado de este post', 
         type: 'bg-green-400',
       });
 
@@ -97,7 +104,7 @@ const MyPosts = () => {
                 role={role}
                 username={username}
                 isMyPost={isMyPost}
-                addStatus={() => addStatusHandler(post._id)}
+                addStatus={(status) => addStatusHandler(post._id, status)}
               />
             );
           })}

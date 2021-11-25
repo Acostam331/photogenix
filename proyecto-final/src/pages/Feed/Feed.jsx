@@ -86,13 +86,6 @@ const Feed = () => {
   const addNewLikeHandler = async (id, isMine) => {
     let response = await setNewLike(token, id);
     if (response.statusText === 'OK') {
-      let msg = isMine ? 'Has removido tu like' : 'Has dado like';
-      setAlertModal({
-        isAlert: true,
-        message: msg,
-        type: 'bg-green-400',
-      });
-
       setPosts((prevPosts) => {
         let index = prevPosts.findIndex((x) => x._id === id);
         if (isMine) {
@@ -107,6 +100,13 @@ const Feed = () => {
         }
 
         return prevPosts;
+      });
+
+      let msg = isMine ? 'Has removido tu like' : 'Has dado like';
+      setAlertModal({
+        isAlert: true,
+        message: msg,
+        type: 'bg-green-400',
       });
 
       setTimeout(() => {
@@ -191,7 +191,6 @@ const Feed = () => {
             comments={comments}
             posts={posts}
             setComments={setComments}
-            token={token}
             setAlertModal={setAlertModal}
             cleanAlert={cleanAlert}
           />
@@ -200,7 +199,6 @@ const Feed = () => {
         )}
         {isNewPost ? (
           <AddPost
-            token={token}
             setIsNewPost={setIsNewPost}
             setAlertModal={setAlertModal}
             cleanAlert={cleanAlert}

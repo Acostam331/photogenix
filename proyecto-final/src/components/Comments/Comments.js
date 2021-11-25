@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Comments.css';
+import { useUserContext } from '../../Context/UserContext';
 import { FaTimes } from 'react-icons/fa';
 import { setNewComment } from '../../services/Posts.services';
 import { BiUserCircle, BiCommentX, BiCommentEdit } from 'react-icons/bi';
@@ -8,10 +9,10 @@ const Comments = ({
   comments,
   setComments,
   posts,
-  token,
   setAlertModal,
-  cleanAlert,
+  cleanAlert
 }) => {
+  const { token, user } = useUserContext();
   const newPost = posts.find((post) => post._id === comments.postId);
   const [message, setMessage] = useState('');
 
@@ -20,6 +21,12 @@ const Comments = ({
       const response = await setNewComment(token, newPost._id, message);
 
       if (response.statusText === 'OK') {
+        newPost.comments.push({
+          description: message,
+          user: {username: user.username},
+          _id: new Date()
+        });
+
         setAlertModal({
           isAlert: true,
           message: 'Has comentado en este post',
