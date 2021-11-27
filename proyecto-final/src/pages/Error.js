@@ -11,7 +11,7 @@ const Error = () => {
       <h1 className="uppercase text-8xl lg:text-5xl font-extrabold text-red-800 text-center p-4">
         ERROR 404... Page not found
       </h1>
-      <Link to="/" className="rounded-lg mx-2 p-4 text-center text-white bg-blue-800 hover:bg-blue-600">Back to App.js</Link>
+      <Link to="/" className="rounded-lg mx-2 p-4 text-center text-white bg-blue-800 hover:bg-blue-600">Regresar</Link>
     </div>
   );
 };
