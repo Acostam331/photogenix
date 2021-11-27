@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './pages/App';
+/* import App from './pages/App'; */
 import Login from './pages/Login/Login';
 import User from './pages/User/User';
 import Test from './pages/Test';
@@ -19,7 +19,8 @@ ReactDOM.render(
       {/* changing routes */}
       <Routes>
         {/* default route */}
-        <Route path="/" element={<App />} />
+        {/* <Route path="/" element={<App />} /> */}
+        <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         {/* Conditional rendering on feed*/}
         <Route
