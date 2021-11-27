@@ -20,6 +20,7 @@ const Card = ({
   active,
   comments,
   setComments,
+  setEdit,
   role,
   username,
   isMyPost,
@@ -66,7 +67,17 @@ const Card = ({
         (role === 'admin' && username === user.username && isMyPost) ? (
           <>
             <div className="flex">
-              <button>
+              <button
+                onClick={() =>
+                  setEdit({
+                    isEdit: true,
+                    postId: _id,
+                    postTitle: title,
+                    postDesc: description,
+                    postImg: image,
+                  })
+                }
+              >
                 <BiPencil className="card-icons edit-icon mx-2" />
               </button>
             </div>

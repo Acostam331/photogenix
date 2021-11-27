@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { BiHome } from 'react-icons/bi';
 import classes from './MyPosts.module.css';
 import Card from '../../components/Card/Card';
+import EditPost from '../../components/EditPost/EditPost';
 import { getMyPosts, setStatusPost } from '../../services/Posts.services';
 import { useUserContext } from '../../Context/UserContext';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -20,6 +21,14 @@ const MyPosts = () => {
     message: '',
     type: '',
   });
+  const [edit, setEdit] = useState({
+    isEdit: false,
+    postId: '',
+    postTitle: '',
+    postDesc: '',
+    postImg: '',
+  });
+  console.log(edit);
 
   const getData = useCallback(async () => {
     console.log('Obteniendo posts: page', page);
@@ -50,7 +59,7 @@ const MyPosts = () => {
   const addStatusHandler = async (id, status) => {
     let response = await setStatusPost(token, id);
     if (response.statusText === 'OK') {
-      setPosts(prevPosts => {
+      setPosts((prevPosts) => {
         let index = prevPosts.findIndex((x) => x._id === id);
         prevPosts[index].active = !status;
 
@@ -59,7 +68,7 @@ const MyPosts = () => {
 
       setAlertModal({
         isAlert: true,
-        message: 'Has cambiado el estado de este post', 
+        message: 'Has cambiado el estado de este post',
         type: 'bg-green-400',
       });
 
@@ -72,7 +81,9 @@ const MyPosts = () => {
   return (
     <main className="bg-indigo-900 h-screen">
       <header className={classes.dCenter}>
-        <h1 className="text-3xl lg:text-3xl font-extrabold text-gray-300 text-center pb-4 mt-8">Mis Posts</h1>
+        <h1 className="text-3xl lg:text-3xl font-extrabold text-gray-300 text-center pb-4 mt-8">
+          Mis Posts
+        </h1>
         <div className={classes.userSection}>
           <Link to="/feed">
             <BiHome className={classes.iconUser} />
@@ -104,11 +115,13 @@ const MyPosts = () => {
                 role={role}
                 username={username}
                 isMyPost={isMyPost}
+                setEdit={setEdit}
                 addStatus={(status) => addStatusHandler(post._id, status)}
               />
             );
           })}
         </InfiniteScroll>
+        {edit.isEdit ? <EditPost edit={edit} setEdit={setEdit} /> : ''}
         {isLoading ? 'loading...' : ''}
       </div>
     </main>

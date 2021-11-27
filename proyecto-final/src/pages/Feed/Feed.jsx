@@ -13,6 +13,7 @@ import {
   setStatusPost,
 } from '../../services/Posts.services';
 import Comments from '../../components/Comments/Comments';
+import EditPost from '../../components/EditPost/EditPost';
 import AddPost from '../../components/AddPost/AddPost';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -34,6 +35,14 @@ const Feed = () => {
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [comments, setComments] = useState({ isComments: false, postId: '' });
+  const [edit, setEdit] = useState({
+    isEdit: false,
+    postId: '',
+    postTitle: '',
+    postDesc: '',
+    postImg: '',
+  });
+  console.log(edit);
   const [alertModal, setAlertModal] = useState({
     isAlert: false,
     message: '',
@@ -142,7 +151,9 @@ const Feed = () => {
     // html and design
     <main className="bg-indigo-900 h-screen">
       <header className={classes.dCenter}>
-        <h1 className="text-3xl lg:text-3xl font-extrabold text-gray-300 text-center pb-4 mt-8">Feed</h1>
+        <h1 className="text-3xl lg:text-3xl font-extrabold text-gray-300 text-center pb-4 mt-8">
+          Feed
+        </h1>
         <div className={classes.userSection}>
           <Link to="/user">
             <BiUserCircle className={classes.iconUser} />
@@ -174,6 +185,7 @@ const Feed = () => {
                 {...post}
                 token={token}
                 setComments={setComments}
+                setEdit={setEdit}
                 addNewLike={(isMine) => addNewLikeHandler(post._id, isMine)}
                 addNewFav={() => addNewFavHandler(post._id)}
                 addStatus={() => addStatusHandler(post._id)}
@@ -197,6 +209,7 @@ const Feed = () => {
         ) : (
           ''
         )}
+        {edit.isEdit ? <EditPost edit={edit} setEdit={setEdit} /> : ''}
         {isNewPost ? (
           <AddPost
             setIsNewPost={setIsNewPost}

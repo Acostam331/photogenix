@@ -1,52 +1,11 @@
 import React, { useState } from 'react';
-import './AddPost.css';
 import { FaTimes } from 'react-icons/fa';
-import { setNewPost } from '../../services/Posts.services';
-import { useUserContext } from '../../Context/UserContext';
+import './EditPost.css';
 
-const AddPost = ({ setIsNewPost, setAlertModal, cleanAlert }) => {
-  const { token } = useUserContext();
-  const [title, setTitle] = useState('');
-  const [desc, setDesc] = useState('');
-  const [image, setImage] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
-
-  const addPostHandler = async () => {
-    if (desc.length >= 8 && title.length >= 8) {
-      await setNewPost(token, title, desc, image);
-
-      setIsNewPost(false);
-      setTitle('');
-      setImage('');
-      setDesc('');
-    } else {
-      setAlertModal({
-        isAlert: true,
-        message: 'La descripcion y titulo deben tener al menos 8 caracteres.',
-        type: 'bg-red-400',
-      });
-
-      setTimeout(() => {
-        cleanAlert();
-      }, 2000);
-    }
-  };
-
-  const changeImageHandler = () => {
-    if (image !== '') {
-      setImageUrl(image);
-    } else {
-      setAlertModal({
-        isAlert: true,
-        message: 'Introduce una URL para tu post.',
-        type: 'bg-red-400',
-      });
-
-      setTimeout(() => {
-        cleanAlert();
-      }, 2000);
-    }
-  };
+const EditPost = ({ edit, setEdit }) => {
+  const [imageUrl, setImageUrl] = useState(edit.postImg);
+  const [postTitle, setPostTitle] = useState(edit.postTitle);
+  const [postDesc, setPostDesc] = useState(edit.postDesc);
 
   return (
     <div className="add-card w-full bg-gray-800 rounded-3xl absolute z-40">
@@ -58,7 +17,16 @@ const AddPost = ({ setIsNewPost, setAlertModal, cleanAlert }) => {
         <button
           className="m-8"
           onClick={() => {
-            setIsNewPost(false);
+            setEdit({
+              isEdit: false,
+              postId: '',
+              postTitle: '',
+              postDesc: '',
+              postImg: '',
+            });
+            setImageUrl('');
+            setPostDesc('');
+            setPostTitle('');
           }}
         >
           <FaTimes className="add-icons" />
@@ -81,9 +49,9 @@ const AddPost = ({ setIsNewPost, setAlertModal, cleanAlert }) => {
               className="input-element w-full px-4 py-2 rounded-3xl"
               placeholder="p. ej. www.unsplash.com/"
               type="text"
-              value={image}
+              value={imageUrl}
               onChange={(e) => {
-                setImage(e.target.value);
+                setImageUrl(e.target.value);
               }}
             />
           </div>
@@ -95,9 +63,9 @@ const AddPost = ({ setIsNewPost, setAlertModal, cleanAlert }) => {
               className="input-element w-full px-4 py-2 rounded-3xl"
               placeholder="p. ej. hoy es un dia soleado..."
               type="text"
-              value={title}
+              value={postTitle}
               onChange={(e) => {
-                setTitle(e.target.value);
+                setPostTitle(e.target.value);
               }}
             />
           </div>
@@ -109,27 +77,15 @@ const AddPost = ({ setIsNewPost, setAlertModal, cleanAlert }) => {
               className="input-element w-full px-4 py-2 rounded-3xl"
               placeholder="p. ej. deberia llover mas tarde..."
               type="text"
-              value={desc}
+              value={postDesc}
               onChange={(e) => {
-                setDesc(e.target.value);
+                setPostDesc(e.target.value);
               }}
             />
           </div>
           <div className="flex">
             <button
               type="button"
-              onClick={() => {
-                changeImageHandler();
-              }}
-              className="rounded-2xl px-4 py-2 m-8 bg-indigo-900 text-white"
-            >
-              Verificar imagen
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                addPostHandler();
-              }}
               className="rounded-2xl px-4 py-2 m-8 bg-indigo-900 text-white"
             >
               Crear Post
@@ -141,4 +97,4 @@ const AddPost = ({ setIsNewPost, setAlertModal, cleanAlert }) => {
   );
 };
 
-export default AddPost;
+export default EditPost;
