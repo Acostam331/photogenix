@@ -28,7 +28,6 @@ const MyPosts = () => {
     postDesc: '',
     postImg: '',
   });
-  console.log(edit);
 
   const getData = useCallback(async () => {
     console.log('Obteniendo posts: page', page);
@@ -49,8 +48,6 @@ const MyPosts = () => {
   useEffect(() => {
     getData();
   }, [getData]);
-
-  console.log(posts);
 
   const cleanAlert = () => {
     setAlertModal({ isAlert: false, icon: '', message: '', type: '' });
@@ -121,7 +118,16 @@ const MyPosts = () => {
             );
           })}
         </InfiniteScroll>
-        {edit.isEdit ? <EditPost edit={edit} setEdit={setEdit} /> : ''}
+        {edit.isEdit ? (
+          <EditPost
+            edit={edit}
+            setEdit={setEdit}
+            setAlertModal={setAlertModal}
+            cleanAlert={cleanAlert}
+          />
+        ) : (
+          ''
+        )}
         {isLoading ? 'loading...' : ''}
       </div>
     </main>

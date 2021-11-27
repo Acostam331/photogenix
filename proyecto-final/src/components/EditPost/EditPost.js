@@ -1,11 +1,41 @@
 import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
+import { useUserContext } from '../../Context/UserContext';
+import { editPost } from '../../services/Posts.services';
 import './EditPost.css';
 
-const EditPost = ({ edit, setEdit }) => {
+const EditPost = ({ edit, setEdit, setAlertModal, cleanAlert }) => {
   const [imageUrl, setImageUrl] = useState(edit.postImg);
   const [postTitle, setPostTitle] = useState(edit.postTitle);
   const [postDesc, setPostDesc] = useState(edit.postDesc);
+  const { token } = useUserContext();
+
+  const editPostHandler = async () => {
+    if (postDesc.length >= 8 && postTitle.length >= 8) {
+      await editPost(token, edit.postId, postTitle, postDesc, imageUrl);
+
+      setEdit({
+        isEdit: false,
+        postId: '',
+        postTitle: '',
+        postDesc: '',
+        postImg: '',
+      });
+      setImageUrl('');
+      setPostDesc('');
+      setPostTitle('');
+    } else {
+      setAlertModal({
+        isAlert: true,
+        message: 'La descripcion y titulo deben tener al menos 8 caracteres.',
+        type: 'bg-red-400',
+      });
+
+      setTimeout(() => {
+        cleanAlert();
+      }, 2000);
+    }
+  };
 
   return (
     <div className="add-card w-full bg-gray-800 rounded-3xl absolute z-40">
@@ -87,6 +117,7 @@ const EditPost = ({ edit, setEdit }) => {
             <button
               type="button"
               className="rounded-2xl px-4 py-2 m-8 bg-indigo-900 text-white"
+              onClick={() => editPostHandler()}
             >
               Crear Post
             </button>

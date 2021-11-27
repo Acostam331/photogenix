@@ -209,3 +209,28 @@ export const setStatusPost = async (token, id) => {
     return response;
   }
 };
+
+// Edit posts
+export const editPost = async (token, id, title, desc, image) => {
+  let response = undefined;
+  try {
+    response = await axios({
+      method: 'PUT',
+      baseURL: BASE_URL,
+      url: `/post/update/${id}`,
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
+      },
+      data: {
+        title: `${title}`,
+        description: `${desc}`,
+        image: `${image}`,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  } finally {
+    return response;
+  }
+};

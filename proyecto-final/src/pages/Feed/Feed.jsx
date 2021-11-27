@@ -42,7 +42,6 @@ const Feed = () => {
     postDesc: '',
     postImg: '',
   });
-  console.log(edit);
   const [alertModal, setAlertModal] = useState({
     isAlert: false,
     message: '',
@@ -145,8 +144,6 @@ const Feed = () => {
     setTab(tab);
   };
 
-  console.log(posts);
-
   return (
     // html and design
     <main className="bg-indigo-900 h-screen">
@@ -209,7 +206,16 @@ const Feed = () => {
         ) : (
           ''
         )}
-        {edit.isEdit ? <EditPost edit={edit} setEdit={setEdit} /> : ''}
+        {edit.isEdit ? (
+          <EditPost
+            edit={edit}
+            setEdit={setEdit}
+            setAlertModal={setAlertModal}
+            cleanAlert={cleanAlert}
+          />
+        ) : (
+          ''
+        )}
         {isNewPost ? (
           <AddPost
             setIsNewPost={setIsNewPost}
