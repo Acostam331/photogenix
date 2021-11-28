@@ -30,6 +30,7 @@ const Card = ({
   currentuser,
 }) => {
   const [isMine, setIsMine] = useState(false);
+  const postComments = comments.filter((x) => x.user !== undefined);
 
   const setNewFav = () => {
     addNewFav();
@@ -53,6 +54,7 @@ const Card = ({
     <div className="square bg-gray-800 rounded-3xl">
       <div className="flex p-4">
         <BiUserCircle className="user-icon mr-2" />
+
         <h3 className="text-white">{user.username}</h3>
       </div>
       <div className="flex justify-center items-center w-11/12 h-72 sm:h-96 mx-auto">
@@ -121,8 +123,8 @@ const Card = ({
               </button>
             </div>
             <div className="flex">
-              {comments.length > 0 ? (
-                <p className="text-white">{comments.length}</p>
+              {postComments.length > 0 ? (
+                <p className="text-white">{postComments.length}</p>
               ) : (
                 ''
               )}

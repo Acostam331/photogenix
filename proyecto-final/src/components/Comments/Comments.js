@@ -3,17 +3,21 @@ import './Comments.css';
 import { useUserContext } from '../../Context/UserContext';
 import { FaTimes } from 'react-icons/fa';
 import { setNewComment } from '../../services/Posts.services';
-import { BiUserCircle, BiCommentX, BiCommentEdit } from 'react-icons/bi';
+import { BiCommentX, BiCommentEdit } from 'react-icons/bi';
+import Comment from '../Comment/Comment';
 
 const Comments = ({
   comments,
   setComments,
   posts,
   setAlertModal,
-  cleanAlert
+  cleanAlert,
 }) => {
   const { token, user } = useUserContext();
   const newPost = posts.find((post) => post._id === comments.postId);
+  const postComments = newPost.comments.filter(
+    (x) => x.user || x.description || x._id !== undefined
+  );
   const [message, setMessage] = useState('');
 
   const addCommentHandler = async () => {
@@ -23,8 +27,8 @@ const Comments = ({
       if (response.statusText === 'OK') {
         newPost.comments.push({
           description: message,
-          user: {username: user.username},
-          _id: new Date()
+          user: { username: user.username },
+          _id: new Date(),
         });
 
         setAlertModal({
@@ -69,28 +73,15 @@ const Comments = ({
         </button>
       </div>
 
-      {newPost.comments.length === 0 ? (
+      {postComments.length === 0 ? (
         <div className="flex flex-col justify-center items-center comments-container">
           <BiCommentX className="no-comments-icon" />
           <p className="text-white">No hay comentarios.</p>
         </div>
       ) : (
         <div className="flex flex-col comments-container">
-          {newPost.comments.map((comment) => {
-            const { _id, user, description } = comment;
-
-            return (
-              <div
-                key={_id}
-                className="m-4 border border-indigo-900 rounded-3xl"
-              >
-                <div className="flex p-4">
-                  <BiUserCircle className="user-icon mr-2" />
-                  <p className="text-white">{user.username}</p>
-                </div>
-                <p className="text-white mx-4 mb-4">{description}</p>
-              </div>
-            );
+          {postComments.map((comment) => {
+            return <Comment key={comment._id} {...comment} />;
           })}
         </div>
       )}

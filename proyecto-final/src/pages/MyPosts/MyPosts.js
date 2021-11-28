@@ -7,6 +7,7 @@ import EditPost from '../../components/EditPost/EditPost';
 import { getMyPosts, setStatusPost } from '../../services/Posts.services';
 import { useUserContext } from '../../Context/UserContext';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Loading from '../../components/Loading/Loading';
 
 const MyPosts = () => {
   const [posts, setPosts] = useState([]);
@@ -32,14 +33,17 @@ const MyPosts = () => {
   const getData = useCallback(async () => {
     console.log('Obteniendo posts: page', page);
     setIsLoading(true);
+    let extraTime = 1500;
     let response = {};
     try {
       response = await getMyPosts(token, page);
 
-      setPosts((prevPosts) => {
-        return [...prevPosts, ...response.posts];
-      });
-      setIsLoading(response.isLoading);
+      setTimeout(() => {
+        setPosts((prevPosts) => {
+          return [...prevPosts, ...response.posts];
+        });
+        setIsLoading(response.isLoading);
+      }, extraTime);
     } catch (error) {
       console.log(error);
     }
@@ -128,7 +132,7 @@ const MyPosts = () => {
         ) : (
           ''
         )}
-        {isLoading ? 'loading...' : ''}
+        {isLoading ? <Loading /> : ''}
       </div>
     </main>
   );

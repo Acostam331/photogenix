@@ -42,7 +42,7 @@ const EditPost = ({ edit, setEdit, setAlertModal, cleanAlert }) => {
       <div className="flex flex-nowrap title-container justify-between">
         <div className="m-4"></div>
         <p className="text-5xl lg:text-5xl font-extrabold text-gray-300 text-center pb-4 mt-10">
-          Nuevo Post
+          Editar Post
         </p>
         <button
           className="m-8"
@@ -119,7 +119,7 @@ const EditPost = ({ edit, setEdit, setAlertModal, cleanAlert }) => {
               className="rounded-2xl px-4 py-2 m-8 bg-indigo-900 text-white"
               onClick={() => editPostHandler()}
             >
-              Crear Post
+              Editar Post
             </button>
           </div>
         </form>

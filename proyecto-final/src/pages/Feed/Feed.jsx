@@ -62,7 +62,7 @@ const Feed = () => {
       // Extra timeout -> used to see loading dots
       setTimeout(() => {
         // to avoid errors in .map is needed to remove all undefined responses
-        response.posts = response.posts.filter(x => x !== undefined);
+        response.posts = response.posts.filter((x) => x !== undefined);
         setPosts((prevPosts) => {
           return [...prevPosts, ...response.posts];
         });
@@ -71,11 +71,11 @@ const Feed = () => {
     } else {
       response = await getFavorites(token);
       setTimeout(() => {
-        response.posts = response.posts.filter(x => x !== undefined);
+        response.posts = response.posts.filter((x) => x !== undefined);
         setPosts(response.posts);
         setIsLoading(response.isLoading);
       }, extraTime);
-    }    
+    }
   }, [tab, page, token]);
 
   useEffect(() => {
@@ -153,14 +153,15 @@ const Feed = () => {
     // if still in the same tab -> update section posts
     if (tab === newtab && page === 0) {
       getData();
-    } else { // if tab changed move to page 0
+    } else {
+      // if tab changed move to page 0
       setPage(0);
       setTab(newtab);
     }
   };
 
   const newPostAddedHandler = () => {
-    changeTabHandler(1)
+    changeTabHandler(1);
   };
 
   return (
