@@ -31,6 +31,7 @@ const Card = ({
   currentuser,
 }) => {
   const [isMine, setIsMine] = useState(false);
+  const [isReadMore, setIsReadMore] = useState(false);
   const postComments = comments.filter((x) => x.user !== undefined);
 
   const setNewFav = () => {
@@ -65,7 +66,23 @@ const Card = ({
           </div>
           <div className="flex flex-col items-center p-4 pb-4">
             <p className="text-white font-thin text-3xl w-b">{title}</p>
-            <h2 className="text-gray-300 w-b">{description}</h2>
+            <h2 className="text-gray-300 w-b">
+              {description.length > 200
+                ? isReadMore
+                  ? `${description} `
+                  : `${description.substring(0, 100)}... `
+                : description}
+              {description.length > 200 ? (
+                <button
+                  className="text-blue-400"
+                  onClick={() => setIsReadMore(!isReadMore)}
+                >
+                  {isReadMore ? 'leer menos' : 'leer más'}
+                </button>
+              ) : (
+                ''
+              )}
+            </h2>
           </div>
         </>
       ) : (
@@ -86,7 +103,23 @@ const Card = ({
             <p className="text-white font-thin text-3xl w-b">
               {localData.title}
             </p>
-            <h2 className="text-gray-300 w-b">{localData.desc}</h2>
+            <h2 className="text-gray-300 w-b">
+              {localData.desc.length > 200
+                ? isReadMore
+                  ? `${localData.desc} `
+                  : `${localData.desc.substring(0, 100)}... `
+                : localData.desc}
+              {localData.desc.length > 200 ? (
+                <button
+                  className="text-blue-400"
+                  onClick={() => setIsReadMore(!isReadMore)}
+                >
+                  {isReadMore ? 'leer menos' : 'leer más'}
+                </button>
+              ) : (
+                ''
+              )}
+            </h2>
           </div>
         </>
       )}
