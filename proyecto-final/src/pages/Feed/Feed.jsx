@@ -138,10 +138,19 @@ const Feed = () => {
     }
   };
 
-  const changeTabHandler = (tab) => {
+  const changeTabHandler = (newtab) => {
     setPosts([]);
-    setPage(0);
-    setTab(tab);
+    // if still in the same tab -> update section posts
+    if (tab === newtab && page === 0) {
+      getData();
+    } else { // if tab changed move to page 0
+      setPage(0);
+      setTab(newtab);
+    }
+  };
+
+  const newPostAddedHandler = () => {
+    changeTabHandler(1)
   };
 
   return (
@@ -180,7 +189,6 @@ const Feed = () => {
               <Card
                 key={post._id}
                 {...post}
-                token={token}
                 setComments={setComments}
                 setEdit={setEdit}
                 addNewLike={(isMine) => addNewLikeHandler(post._id, isMine)}
@@ -221,6 +229,7 @@ const Feed = () => {
             setIsNewPost={setIsNewPost}
             setAlertModal={setAlertModal}
             cleanAlert={cleanAlert}
+            newPostAdded={() => newPostAddedHandler()}
           />
         ) : (
           ''

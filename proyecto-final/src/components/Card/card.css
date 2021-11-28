@@ -44,6 +44,11 @@
   fill: red;
 }
 
+.w-b {
+  width: 100%;
+  word-break: break-all;
+}
+
 @media (max-width: 600px) {
   .square {
     width: 90%;

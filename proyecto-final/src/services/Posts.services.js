@@ -88,7 +88,6 @@ const getFavoritesIds = async (token) => {
 
     if (posts) {
       response = posts.data.favorites;
-      // console.log(posts);
     }
   } catch (error) {
     console.log(error);
@@ -162,6 +161,7 @@ export const setNewComment = async (token, id, message) => {
   } catch (error) {
     console.log(error);
   } finally {
+    console.log(response);
     return response;
   }
 };

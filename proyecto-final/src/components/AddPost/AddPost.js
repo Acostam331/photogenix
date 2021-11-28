@@ -4,7 +4,7 @@ import { FaTimes } from 'react-icons/fa';
 import { setNewPost } from '../../services/Posts.services';
 import { useUserContext } from '../../Context/UserContext';
 
-const AddPost = ({ setIsNewPost, setAlertModal, cleanAlert }) => {
+const AddPost = ({ setIsNewPost, setAlertModal, cleanAlert, newPostAdded = () => {} }) => {
   const { token } = useUserContext();
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
@@ -13,12 +13,19 @@ const AddPost = ({ setIsNewPost, setAlertModal, cleanAlert }) => {
 
   const addPostHandler = async () => {
     if (desc.length >= 8 && title.length >= 8) {
-      await setNewPost(token, title, desc, image);
+      const response = await setNewPost(token, title, desc, image);
 
-      setIsNewPost(false);
-      setTitle('');
-      setImage('');
-      setDesc('');
+      {/* VERIFICAR RESPUESTA */}
+      console.log(response);
+
+      if (response.statusText === 'OK') {
+        setIsNewPost(false);
+        setTitle('');
+        setImage('');
+        setDesc('');
+  
+        newPostAdded();
+      }
     } else {
       setAlertModal({
         isAlert: true,

@@ -59,8 +59,8 @@ const Card = ({
         <img src={image} className="card-img" alt={title} />
       </div>
       <div className="flex flex-col items-center p-4 pb-4">
-        <p className="text-white font-thin text-3xl">{title}</p>
-        <h2 className="text-gray-300">{description}</h2>
+        <p className="text-white font-thin text-3xl w-b">{title}</p>
+        <h2 className="text-gray-300 w-b">{description}</h2>
       </div>
       <div className="flex justify-end px-4 pb-4">
         {(role === 'admin' && username === user.username) ||
