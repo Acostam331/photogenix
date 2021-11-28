@@ -4,7 +4,14 @@ import { useUserContext } from '../../Context/UserContext';
 import { editPost } from '../../services/Posts.services';
 import './EditPost.css';
 
-const EditPost = ({ edit, setEdit, setAlertModal, cleanAlert }) => {
+const EditPost = ({
+  edit,
+  setEdit,
+  setAlertModal,
+  cleanAlert,
+  setLocalData,
+  localData,
+}) => {
   const [imageUrl, setImageUrl] = useState(edit.postImg);
   const [postTitle, setPostTitle] = useState(edit.postTitle);
   const [postDesc, setPostDesc] = useState(edit.postDesc);
@@ -13,6 +20,13 @@ const EditPost = ({ edit, setEdit, setAlertModal, cleanAlert }) => {
   const editPostHandler = async () => {
     if (postDesc.length >= 8 && postTitle.length >= 8) {
       await editPost(token, edit.postId, postTitle, postDesc, imageUrl);
+
+      setLocalData({
+        id: edit.postId,
+        url: imageUrl,
+        title: postTitle,
+        desc: postDesc,
+      });
 
       setEdit({
         isEdit: false,

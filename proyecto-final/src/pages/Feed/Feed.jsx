@@ -36,6 +36,12 @@ const Feed = () => {
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [comments, setComments] = useState({ isComments: false, postId: '' });
+  const [localData, setLocalData] = useState({
+    id: '',
+    url: '',
+    title: '',
+    desc: '',
+  });
   const [edit, setEdit] = useState({
     isEdit: false,
     postId: '',
@@ -201,6 +207,7 @@ const Feed = () => {
                 key={post._id}
                 {...post}
                 setComments={setComments}
+                localData={localData}
                 setEdit={setEdit}
                 addNewLike={(isMine) => addNewLikeHandler(post._id, isMine)}
                 addNewFav={() => addNewFavHandler(post._id)}
@@ -228,6 +235,7 @@ const Feed = () => {
         {edit.isEdit ? (
           <EditPost
             edit={edit}
+            setLocalData={setLocalData}
             setEdit={setEdit}
             setAlertModal={setAlertModal}
             cleanAlert={cleanAlert}

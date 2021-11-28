@@ -12,6 +12,12 @@ import Loading from '../../components/Loading/Loading';
 const MyPosts = () => {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(0);
+  const [localData, setLocalData] = useState({
+    id: '',
+    url: '',
+    title: '',
+    desc: '',
+  });
   const { token, user } = useUserContext();
   const role = user.role;
   const username = user.username;
@@ -111,6 +117,7 @@ const MyPosts = () => {
             return (
               <Card
                 key={post._id}
+                localData={localData}
                 {...post}
                 token={token}
                 role={role}
@@ -127,7 +134,9 @@ const MyPosts = () => {
             edit={edit}
             setEdit={setEdit}
             setAlertModal={setAlertModal}
+            localData={localData}
             cleanAlert={cleanAlert}
+            setLocalData={setLocalData}
           />
         ) : (
           ''

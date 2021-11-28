@@ -21,6 +21,7 @@ const Card = ({
   comments,
   setComments,
   setEdit,
+  localData,
   role,
   username,
   isMyPost,
@@ -52,18 +53,44 @@ const Card = ({
   return (
     // html and design
     <div className="square bg-gray-800 rounded-3xl">
-      <div className="flex p-4">
-        <BiUserCircle className="user-icon mr-2" />
+      {_id !== localData.id ? (
+        <>
+          <div className="flex p-4">
+            <BiUserCircle className="user-icon mr-2" />
 
-        <h3 className="text-white">{user.username}</h3>
-      </div>
-      <div className="flex justify-center items-center w-11/12 h-72 sm:h-96 mx-auto">
-        <img src={image} className="card-img" alt={title} />
-      </div>
-      <div className="flex flex-col items-center p-4 pb-4">
-        <p className="text-white font-thin text-3xl w-b">{title}</p>
-        <h2 className="text-gray-300 w-b">{description}</h2>
-      </div>
+            <h3 className="text-white">{user.username}</h3>
+          </div>
+          <div className="flex justify-center items-center w-11/12 h-72 sm:h-96 mx-auto">
+            <img src={image} className="card-img" alt={title} />
+          </div>
+          <div className="flex flex-col items-center p-4 pb-4">
+            <p className="text-white font-thin text-3xl w-b">{title}</p>
+            <h2 className="text-gray-300 w-b">{description}</h2>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="flex p-4">
+            <BiUserCircle className="user-icon mr-2" />
+
+            <h3 className="text-white">{user.username}</h3>
+          </div>
+          <div className="flex justify-center items-center w-11/12 h-72 sm:h-96 mx-auto">
+            <img
+              src={localData.url}
+              className="card-img"
+              alt={localData.title}
+            />
+          </div>
+          <div className="flex flex-col items-center p-4 pb-4">
+            <p className="text-white font-thin text-3xl w-b">
+              {localData.title}
+            </p>
+            <h2 className="text-gray-300 w-b">{localData.desc}</h2>
+          </div>
+        </>
+      )}
+
       <div className="flex justify-end px-4 pb-4">
         {(role === 'admin' && username === user.username) ||
         (role === 'admin' && username === user.username && isMyPost) ? (
