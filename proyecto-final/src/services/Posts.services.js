@@ -161,7 +161,6 @@ export const setNewComment = async (token, id, message) => {
   } catch (error) {
     console.log(error);
   } finally {
-    console.log(response);
     return response;
   }
 };

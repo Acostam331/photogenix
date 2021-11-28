@@ -15,6 +15,7 @@ import {
 import Comments from '../../components/Comments/Comments';
 import EditPost from '../../components/EditPost/EditPost';
 import AddPost from '../../components/AddPost/AddPost';
+import Loading from '../../components/Loading/Loading';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 const Feed = () => {
@@ -54,18 +55,27 @@ const Feed = () => {
   const getData = useCallback(async () => {
     console.log('Obteniendo posts: page', page);
     setIsLoading(true);
+    let extraTime = 1500;
     let response = {};
     if (tab === 1) {
       response = await getAllPosts(token, page);
-      setPosts((prevPosts) => {
-        return [...prevPosts, ...response.posts];
-      });
+      // Extra timeout -> used to see loading dots
+      setTimeout(() => {
+        // to avoid errors in .map is needed to remove all undefined responses
+        response.posts = response.posts.filter(x => x !== undefined);
+        setPosts((prevPosts) => {
+          return [...prevPosts, ...response.posts];
+        });
+        setIsLoading(response.isLoading);
+      }, extraTime);
     } else {
       response = await getFavorites(token);
-      setPosts(response.posts);
-    }
-
-    setIsLoading(response.isLoading);
+      setTimeout(() => {
+        response.posts = response.posts.filter(x => x !== undefined);
+        setPosts(response.posts);
+        setIsLoading(response.isLoading);
+      }, extraTime);
+    }    
   }, [tab, page, token]);
 
   useEffect(() => {
@@ -201,7 +211,7 @@ const Feed = () => {
             );
           })}
         </InfiniteScroll>
-        {isLoading ? 'loading...' : ''}
+        {isLoading ? <Loading /> : ''}
 
         {comments.isComments ? (
           <Comments

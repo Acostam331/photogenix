@@ -15,16 +15,23 @@ const AddPost = ({ setIsNewPost, setAlertModal, cleanAlert, newPostAdded = () =>
     if (desc.length >= 8 && title.length >= 8) {
       const response = await setNewPost(token, title, desc, image);
 
-      {/* VERIFICAR RESPUESTA */}
-      console.log(response);
-
-      if (response.statusText === 'OK') {
+      if (response.statusText === 'Created') {
         setIsNewPost(false);
         setTitle('');
         setImage('');
         setDesc('');
   
         newPostAdded();
+      } else {
+        setAlertModal({
+          isAlert: true,
+          message: 'Error, intentalo de nuevo más tarde!',
+          type: 'bg-red-400',
+        });
+  
+        setTimeout(() => {
+          cleanAlert();
+        }, 2000);
       }
     } else {
       setAlertModal({
