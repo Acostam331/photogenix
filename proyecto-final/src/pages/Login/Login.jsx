@@ -40,7 +40,7 @@ export default function Login() {
           className="flex flex-col gap-6 items-center justify-center"
         >
           <h2 className="uppercase text-5xl lg:text-5xl font-extrabold text-gray-300 text-center pb-4">
-            Proyecto REST
+            Photogenix
           </h2>
 
           {error && (
