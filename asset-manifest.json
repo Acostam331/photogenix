@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/photogenix/static/css/main.12230aae.chunk.css",
+    "main.js": "/photogenix/static/js/main.953bb2fa.chunk.js",
+    "main.js.map": "/photogenix/static/js/main.953bb2fa.chunk.js.map",
+    "runtime-main.js": "/photogenix/static/js/runtime-main.d8d25180.js",
+    "runtime-main.js.map": "/photogenix/static/js/runtime-main.d8d25180.js.map",
+    "static/js/2.9b53503f.chunk.js": "/photogenix/static/js/2.9b53503f.chunk.js",
+    "static/js/2.9b53503f.chunk.js.map": "/photogenix/static/js/2.9b53503f.chunk.js.map",
+    "index.html": "/photogenix/index.html",
+    "static/css/main.12230aae.chunk.css.map": "/photogenix/static/css/main.12230aae.chunk.css.map",
+    "static/js/2.9b53503f.chunk.js.LICENSE.txt": "/photogenix/static/js/2.9b53503f.chunk.js.LICENSE.txt",
+    "static/media/error.1704b193.png": "/photogenix/static/media/error.1704b193.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d8d25180.js",
+    "static/js/2.9b53503f.chunk.js",
+    "static/css/main.12230aae.chunk.css",
+    "static/js/main.953bb2fa.chunk.js"
+  ]
+}
